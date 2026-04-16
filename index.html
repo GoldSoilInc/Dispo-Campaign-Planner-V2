@@ -3,27 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Acre Deal — Campaign Planner v2</title>
+<title>Max Acres — Campaign Planner</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F3F4F6;--surface:#FFF;--surface2:#F0F1F4;--surface3:#E5E7EB;--border:#D1D5DB;--text:#1F2937;--text2:#6B7280;--text3:#9CA3AF;--accent:#4F6BED;--realtor:#2563EB;--realtor-bg:#EFF4FF;--buyer:#059669;--buyer-bg:#ECFDF5;--neighbor:#D97706;--neighbor-bg:#FFFBEB;--investor:#7C3AED;--investor-bg:#F5F3FF;--pricedrop:#DC2626;--pricedrop-bg:#FEF2F2;--critical:#DC2626;--success:#059669;--call-badge:#DB2777;--radius:8px;--radius-sm:5px;--shadow:0 2px 8px rgba(0,0,0,.08)}
+:root{--bg:#F4F6F2;--surface:#FFF;--surface2:#EDF2EB;--surface3:#D8E0D4;--border:#C2CCBA;--text:#022e19;--text2:#3D5C47;--text3:#7A9882;--accent:#006838;--realtor:#2563EB;--realtor-bg:#EFF4FF;--buyer:#059669;--buyer-bg:#ECFDF5;--neighbor:#D97706;--neighbor-bg:#FFFBEB;--investor:#7C3AED;--investor-bg:#F5F3FF;--pricedrop:#DC2626;--pricedrop-bg:#FEF2F2;--critical:#DC2626;--success:#006838;--call-badge:#DB2777;--radius:8px;--radius-sm:5px;--shadow:0 2px 8px rgba(0,0,0,.08)}
 *{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow:hidden;height:100vh}
 .app{display:grid;grid-template-columns:360px 1fr;grid-template-rows:auto 1fr;height:100vh}
-.header{grid-column:1/-1;background:var(--surface);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;gap:20px;z-index:10;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.header h1{font-size:18px;font-weight:700;letter-spacing:-.3px;white-space:nowrap}.header h1 span{color:var(--accent)}
-.legend{display:flex;gap:12px;align-items:center}.legend-item{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text2)}.legend-dot{width:10px;height:10px;border-radius:3px}
+.header{grid-column:1/-1;background:#00582f;border-bottom:1px solid #022e19;padding:14px 24px;display:flex;align-items:center;gap:20px;z-index:10;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.header h1{font-size:18px;font-weight:700;letter-spacing:-.3px;white-space:nowrap;color:#fff}.header h1 span{color:#e0b52c}
+.legend{display:flex;gap:12px;align-items:center}.legend-item{display:flex;align-items:center;gap:4px;font-size:11px;color:rgba(255,255,255,.75)}.legend-dot{width:10px;height:10px;border-radius:3px}
 .header-stats{display:flex;gap:12px;margin-left:auto;flex-wrap:wrap}
-.stat-pill{background:var(--surface2);padding:5px 12px;border-radius:20px;font-size:11px;font-weight:500;display:flex;align-items:center;gap:5px}
-.stat-pill .num{font-family:'Space Mono',monospace;font-weight:700;color:var(--accent)}
+.stat-pill{background:rgba(255,255,255,.12);padding:5px 12px;border-radius:20px;font-size:11px;font-weight:500;display:flex;align-items:center;gap:5px;color:rgba(255,255,255,.8)}
+.stat-pill .num{font-family:'Space Mono',monospace;font-weight:700;color:#e0b52c}
 .sidebar{background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column}
-.sidebar-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:0;z-index:5}
-.sidebar-tab{flex:1;padding:10px 4px;text-align:center;font-size:9px;font-weight:600;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:.15s;letter-spacing:.3px;text-transform:uppercase}
-.sidebar-tab:hover{color:var(--text2);background:var(--surface2)}
-.sidebar-tab.active{color:var(--accent);border-bottom-color:var(--accent);background:rgba(79,107,237,.04)}
-.sidebar-tab .tab-icon{display:block;font-size:15px;margin-bottom:2px}
+.sidebar-filters{padding:12px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface);z-index:5}
+.filter-group{margin-bottom:10px}
+.filter-group:last-child{margin-bottom:0}
+.filter-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:5px;display:block}
+.filter-select{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--text);background:var(--surface);outline:none;cursor:pointer}
+.filter-select:focus{border-color:#006838}
+.checkbox-group{display:flex;flex-direction:column;gap:4px}
+.cb-label{font-size:11px;color:var(--text2);display:flex;align-items:center;gap:6px;cursor:pointer;padding:3px 0;transition:color .15s}
+.cb-label:hover{color:var(--text)}
+.cb-label input[type=checkbox]{accent-color:var(--accent);cursor:pointer}
+.search-box{position:relative;display:flex;align-items:center}
+.search-icon{position:absolute;left:10px;font-size:13px;pointer-events:none;z-index:1}
+.search-input{width:100%;padding:9px 30px 9px 32px;border:1px solid var(--border);border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text);background:var(--surface2);outline:none;transition:border-color .15s}
+.search-input:focus{border-color:var(--accent);background:var(--surface)}
+.search-input::placeholder{color:var(--text3)}
+.search-clear{position:absolute;right:6px;background:none;border:none;font-size:16px;color:var(--text3);cursor:pointer;padding:2px 4px;line-height:1;display:none}
+.search-clear:hover{color:var(--text)}
+.search-clear.show{display:block}
 .sidebar-content{flex:1;padding:8px;overflow-y:auto}.sidebar-content.hidden{display:none}
 .prop-card{padding:10px;border-radius:var(--radius);font-size:11px;position:relative;margin-bottom:6px;background:var(--surface);border:1px solid var(--border);transition:box-shadow .15s;cursor:pointer}
-.prop-card:hover{box-shadow:var(--shadow);border-color:var(--accent)}
+.prop-card:hover{box-shadow:var(--shadow);border-color:#006838}
 .prop-card-top{display:flex;align-items:center;justify-content:space-between;gap:4px;margin-bottom:4px}
 .prop-card-address{font-weight:700;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
 .prop-card-badges{display:flex;gap:3px;align-items:center;flex-shrink:0}
@@ -45,11 +58,11 @@
 .campaign-chip.pricedrop{background:var(--pricedrop-bg);color:var(--pricedrop);border-color:#FECACA}
 .chip-call{font-size:7px;background:var(--call-badge);color:#fff;padding:1px 4px;border-radius:4px}
 .badge{font-size:9px;font-weight:700;padding:1px 5px;border-radius:8px;font-family:'Space Mono',monospace}
-.badge-jose{background:#DBEAFE;color:#1E40AF}.badge-gab{background:#FDE68A;color:#92400E}
+.badge-jose{background:#DBEAFE;color:#1E40AF}.badge-gab{background:#e0b52c;color:#022e19}
 .pod-filter{cursor:pointer;padding:3px 10px;font-size:10px;transition:.15s;border:2px solid transparent}
 .pod-filter:hover{transform:scale(1.1)}
-.pod-filter.active{border-color:#1F2937;box-shadow:0 0 0 2px rgba(79,107,237,.3)}
-.badge-tah{background:#DBEAFE;color:#1E40AF;font-size:8px}
+.pod-filter.active{border-color:#fff;box-shadow:0 0 0 2px rgba(224,181,44,.4)}
+.badge-tah{background:#e0b52c;color:#022e19;font-size:8px}
 .badge-exp{font-size:8px;padding:1px 5px;border-radius:8px;background:#F3F4F6;color:#6B7280;border:1px solid #E5E7EB}
 .badge-exp.urgent{background:#FEE2E2;color:#DC2626;border-color:#FECACA}
 
@@ -60,7 +73,7 @@
 .ai-card-top{display:flex;align-items:center;gap:6px;margin-left:30px;margin-bottom:4px}
 .ai-card-address{font-weight:700;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;cursor:pointer}
 .ai-card-address:hover{color:var(--accent);text-decoration:underline}
-.ai-card-score{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:var(--accent);background:rgba(79,107,237,.08);padding:2px 8px;border-radius:10px}
+.ai-card-score{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:var(--accent);background:rgba(0,104,56,.08);padding:2px 8px;border-radius:10px}
 .ai-card-reason{font-size:10px;color:var(--text2);margin-left:30px;margin-bottom:6px;line-height:1.4}
 .ai-card-chip-row{margin-left:30px;display:flex;gap:4px;align-items:center}
 .ai-card-meta{display:flex;gap:6px;font-size:9px;color:var(--text3);margin-left:30px;margin-top:4px}
@@ -72,7 +85,7 @@
 .calendar{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border-radius:var(--radius);overflow:hidden}
 .cal-header-cell{background:var(--surface);padding:10px;text-align:center;font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px}
 .cal-day{background:var(--surface);min-height:140px;padding:8px;display:flex;flex-direction:column;transition:background .15s;position:relative}
-.cal-day.today{background:rgba(79,107,237,.05)}.cal-day.past{background:#F9FAFB}
+.cal-day.today{background:rgba(0,104,56,.06)}.cal-day.past{background:#F9FAFB}
 .cal-day.past>.cal-day-header{opacity:.4}
 .cal-day.past .cal-day-cards .sched-card{pointer-events:none;opacity:.3;cursor:default}
 
@@ -88,13 +101,13 @@
 .resched-card-type{font-weight:700;font-size:11px;color:#DC2626}
 .resched-card-addr{font-size:11px;font-weight:600;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .resched-card-date{font-size:10px;color:#DC2626;font-weight:600;background:#FEE2E2;padding:2px 8px;border-radius:6px}
-.cal-day.drop-target{background:rgba(79,107,237,.06);outline:2px dashed var(--accent);outline-offset:-2px}
+.cal-day.drop-target{background:rgba(0,104,56,.06);outline:2px dashed var(--accent);outline-offset:-2px}
 .cal-day.outside{background:#F9FAFB;opacity:.3;pointer-events:none}
 .cal-day-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
 .cal-day-num{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:var(--text2)}
 .cal-day.today .cal-day-num{color:var(--accent)}
 .cal-day-stats{display:flex;align-items:center;gap:5px}
-.cal-day-profit{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:#059669}
+.cal-day-profit{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:#006838}
 .cal-day-pod{font-family:'Space Mono',monospace;font-size:9px;font-weight:600;color:var(--text3);background:var(--surface2);padding:1px 5px;border-radius:6px}
 .cal-day-count{font-size:10px;font-weight:700;font-family:'Space Mono',monospace;padding:2px 6px;border-radius:8px}
 .cal-day-count.ok{background:rgba(16,185,129,.15);color:var(--success)}.cal-day-count.low{background:rgba(239,68,68,.15);color:var(--critical)}.cal-day-count.zero{background:var(--surface2);color:var(--text3)}
@@ -120,7 +133,7 @@
 .modal-tag.t-realtor{background:#DBEAFE;color:#1D4ED8}.modal-tag.t-buyer{background:#D1FAE5;color:#047857}
 .modal-tag.t-neighbor{background:#FEF3C7;color:#B45309}.modal-tag.t-investor{background:#EDE9FE;color:#6D28D9}
 .modal-tag.t-call{background:#FCE7F3;color:#BE185D}.modal-tag.t-text{background:var(--surface2);color:var(--text2)}
-.modal-tag.t-round{background:var(--surface2);color:var(--text2)}.modal-tag.t-owned{background:#DBEAFE;color:#1E40AF}
+.modal-tag.t-round{background:var(--surface2);color:var(--text2)}.modal-tag.t-owned{background:#e0b52c;color:#022e19}
 .modal-tag.t-exp{background:#F3F4F6;color:#6B7280}.modal-tag.t-exp-urgent{background:#FEE2E2;color:#DC2626}
 .modal-body{padding:16px 24px 20px}.modal-section{margin-bottom:18px}
 .modal-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid var(--surface2)}
@@ -135,12 +148,12 @@
 .modal-history-empty{font-size:12px;color:var(--text3);font-style:italic;padding:12px 0}
 .history-scroll{max-height:160px;overflow-y:auto;border:1px solid var(--surface2);border-radius:6px}
 .modal-footer{padding:12px 24px 20px;display:flex;justify-content:flex-end}
-.modal-close-btn{background:var(--accent);color:#fff;border:none;padding:8px 28px;border-radius:8px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px}.modal-close-btn:hover{opacity:.9}
+.modal-close-btn{background:#006838;color:#fff;border:none;padding:8px 28px;border-radius:8px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:13px}.modal-close-btn:hover{opacity:.9}
 .modal-notes{width:100%;min-height:70px;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text);background:var(--surface2);resize:vertical;line-height:1.5;outline:none}
 .modal-notes:focus{border-color:var(--accent)}.modal-notes::placeholder{color:var(--text3)}
 .sched-row{padding:10px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;margin-bottom:8px}
 .sched-row-header{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
-.sched-row-date{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--accent);background:rgba(79,107,237,.08);padding:3px 10px;border-radius:6px}
+.sched-row-date{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--accent);background:rgba(0,104,56,.08);padding:3px 10px;border-radius:6px}
 .sched-row-type{font-size:11px;font-weight:700}
 .sched-row-field{display:flex;align-items:center;gap:8px;margin-bottom:6px}
 .sched-row-label{font-size:11px;font-weight:600;color:var(--text2);min-width:90px}
@@ -150,64 +163,117 @@
 .sched-row textarea:focus{border-color:var(--accent)}
 .sched-row textarea::placeholder{color:var(--text3)}
 .no-sched{font-size:12px;color:var(--text3);font-style:italic;padding:12px 0}
-
+.counties-input{width:100%;min-height:50px;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--text);background:var(--surface);resize:vertical;outline:none;line-height:1.4}
+.counties-input:focus{border-color:var(--accent)}
+.counties-input::placeholder{color:var(--text3)}
+.counties-input.has-error{border-color:#DC2626;background:#FEF2F2}
+.counties-error{font-size:10px;color:#DC2626;margin-top:4px;line-height:1.4;display:none}
+.counties-error.show{display:block}
 .upload-mini{display:flex;align-items:center;gap:8px}
-.upload-mini label{font-size:11px;padding:5px 12px;border-radius:14px;background:var(--surface2);border:1px solid var(--border);cursor:pointer;font-weight:600;color:var(--text2)}
-.upload-mini label:hover{border-color:var(--accent);color:var(--text)}
+.upload-mini label{font-size:11px;padding:5px 12px;border-radius:14px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);cursor:pointer;font-weight:600;color:rgba(255,255,255,.85)}
+.upload-mini label:hover{border-color:#e0b52c;color:#fff}
 .upload-mini input{display:none}
-.save-indicator{font-size:10px;color:var(--success);font-weight:600;opacity:0;transition:opacity .3s}
+.save-indicator{font-size:10px;color:#e0b52c;font-weight:600;opacity:0;transition:opacity .3s}
 .save-indicator.show{opacity:1}
-::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.mcr-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.9);padding:6px 14px;border-radius:8px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;transition:.15s;white-space:nowrap}
+.mcr-btn:hover{background:rgba(224,181,44,.25);border-color:#e0b52c;color:#fff}
+.mcr-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:150;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.mcr-overlay.show{display:flex}
+.mcr-modal{background:var(--surface);border-radius:14px;width:95%;max-width:1100px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,.2)}
+.mcr-header{padding:20px 24px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-shrink:0}
+.mcr-title{font-size:17px;font-weight:700;color:var(--text)}
+.mcr-title span{color:var(--accent)}
+.mcr-filters{display:flex;gap:6px}
+.mcr-filter{padding:5px 14px;border-radius:14px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--text2);font-family:'DM Sans',sans-serif;transition:.15s}
+.mcr-filter:hover{border-color:var(--accent);color:var(--text)}
+.mcr-filter.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.mcr-close{background:none;border:none;font-size:22px;color:var(--text3);cursor:pointer;padding:0 4px;line-height:1}
+.mcr-close:hover{color:var(--text)}
+.mcr-body{overflow:auto;flex:1;padding:0}
+.mcr-table{width:100%;border-collapse:collapse;font-size:11px}
+.mcr-table thead{position:sticky;top:0;z-index:2}
+.mcr-table th{background:#00582f;color:#fff;padding:10px 12px;text-align:left;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+.mcr-table th:first-child{border-radius:0}
+.mcr-table td{padding:8px 12px;border-bottom:1px solid var(--surface2);vertical-align:top}
+.mcr-table tr:hover{background:rgba(0,104,56,.03)}
+.mcr-table tr:last-child td{border-bottom:none}
+.mcr-prop-addr{font-weight:700;font-size:11px;color:var(--text);white-space:nowrap}
+.mcr-prop-sub{font-size:9px;color:var(--text3)}
+.mcr-count{font-family:'Space Mono',monospace;font-weight:700;font-size:12px;text-align:center}
+.mcr-count.zero{color:var(--text3)}
+.mcr-count.has{color:var(--accent)}
+.mcr-total{font-family:'Space Mono',monospace;font-weight:700;font-size:13px;color:#e0b52c;text-align:center}
+.mcr-counties{font-size:10px;color:var(--text2);max-width:280px;line-height:1.4}
+.mcr-county-tag{display:inline-block;background:var(--surface2);border:1px solid var(--border);padding:1px 6px;border-radius:4px;font-size:9px;margin:1px 2px;color:var(--text2)}
+.mcr-exp{font-family:'Space Mono',monospace;font-size:11px;font-weight:700}
+.mcr-exp.urgent{color:#DC2626}
+.mcr-exp.ok{color:var(--accent)}
+.mcr-exp.owned{color:#a9862e}
+.mcr-exp.expired{color:#DC2626}
+.mcr-summary{padding:14px 24px;border-top:1px solid var(--border);display:flex;gap:20px;font-size:12px;color:var(--text2);flex-shrink:0}
+.mcr-summary strong{color:var(--text);font-family:'Space Mono',monospace}
+.mcr-empty{padding:60px 24px;text-align:center;color:var(--text3);font-size:14px}
+::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#A8B8A0;border-radius:3px}
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 <body>
-
-<div class="app" id="main-app">
+<div class="app">
   <div class="header">
-    <h1>The Acre Deal — <span>Campaign Planner</span></h1>
+    <h1>Max Acres — <span>Campaign Planner</span></h1>
     <div class="legend">
-      <div class="legend-item"><div class="legend-dot" style="background:var(--realtor)"></div>Realtor</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--buyer)"></div>Buyer</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--neighbor)"></div>Neighbor</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--investor)"></div>Investor</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--pricedrop)"></div>Price Drop</div>
-      <div class="legend-item"><span style="background:var(--call-badge);color:#fff;font-size:9px;padding:1px 5px;border-radius:8px;font-weight:700">CALL</span>Call</div>
-      <div class="legend-item" style="margin-left:6px;padding-left:6px;border-left:1px solid var(--border)"><span class="badge badge-jose pod-filter" data-pod="Jose" onclick="togglePodFilter('Jose')">Jose</span></div>
-      <div class="legend-item"><span class="badge badge-gab pod-filter" data-pod="Gabriel" onclick="togglePodFilter('Gabriel')">Gab</span></div>
-    </div>
-    <div class="upload-mini">
+      <div class="upload-mini">
       <label for="refresh-csv">📂 Refresh CSVs</label>
       <input type="file" id="refresh-csv" accept=".csv" multiple onchange="handleRefreshUpload(this.files)">
       <span class="save-indicator" id="save-indicator">✓ Saved</span>
+    </div>
+    <button class="mcr-btn" onclick="openMCR()">📊 Master Campaign Report</button>
+      <div class="legend-item" style="margin-left:6px;padding-left:6px;border-left:1px solid rgba(255,255,255,.2)"><span class="badge badge-jose pod-filter" data-pod="Jose" onclick="togglePodFilter('Jose')">Jose</span></div>
+      <div class="legend-item"><span class="badge badge-gab pod-filter" data-pod="Gabriel" onclick="togglePodFilter('Gabriel')">Gab</span></div>
     </div>
     <div class="header-stats">
       <div class="stat-pill">Properties <span class="num" id="stat-props">0</span></div>
       <div class="stat-pill">Scheduled <span class="num" id="stat-sched">0</span></div>
       <div class="stat-pill">Unplanned <span class="num" id="stat-unplan">0</span></div>
-      <div class="stat-pill" style="border:1px solid #D1FAE5">Profit Chasing <span class="num" id="stat-profit" style="color:#059669">$0</span></div>
+      <div class="stat-pill" style="border:1px solid rgba(224,181,44,.4)">Profit Chasing <span class="num" id="stat-profit" style="color:#e0b52c">$0</span></div>
     </div>
   </div>
   <div class="sidebar">
     <div id="resched-section" class="resched-section"></div>
-    <div class="sidebar-tabs">
-      <div class="sidebar-tab active" data-tab="all"><span class="tab-icon">📋</span>All</div>
-      <div class="sidebar-tab" data-tab="profit"><span class="tab-icon">💰</span>Spread</div>
-      <div class="sidebar-tab" data-tab="dom"><span class="tab-icon">⏳</span>Expire</div>
-      <div class="sidebar-tab" data-tab="lastcamp"><span class="tab-icon">📨</span>Last Camp</div>
-      <div class="sidebar-tab" data-tab="owned"><span class="tab-icon">🏠</span>Owned</div>
-      <div class="sidebar-tab" data-tab="ai"><span class="tab-icon">🤖</span>AI</div>
-      <div class="sidebar-tab" data-tab="new"><span class="tab-icon">🆕</span>New</div>
+    <div class="sidebar-filters">
+      <div class="filter-group">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="prop-search" class="search-input" placeholder="Search address, city, state, ID..." oninput="handleSearch(this.value)">
+          <button class="search-clear" id="search-clear" onclick="clearSearch()">×</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <label class="filter-label">View</label>
+        <select id="view-select" class="filter-select" onchange="handleViewChange(this.value)">
+          <option value="all">📋 All Properties</option>
+          <option value="profit">💰 Spread (by Profit)</option>
+          <option value="dom">⏳ Expire (by Urgency)</option>
+          <option value="lastcamp">📨 Last Campaign</option>
+          <option value="owned">🏠 TAH Owned</option>
+          <option value="ai">🤖 AI Recommendations</option>
+          <option value="new">🆕 New Properties</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label class="filter-label">What have we not done?</label>
+        <div class="checkbox-group" id="notdone-filters">
+          <label class="cb-label"><input type="checkbox" value="realtor" onchange="handleNotDoneChange()"> No Realtor Campaign</label>
+          <label class="cb-label"><input type="checkbox" value="buyer" onchange="handleNotDoneChange()"> No Buyer Base Campaign</label>
+          <label class="cb-label"><input type="checkbox" value="investor" onchange="handleNotDoneChange()"> No Investor Campaign</label>
+          <label class="cb-label"><input type="checkbox" value="pricedrop" onchange="handleNotDoneChange()"> No Price Drop Campaign</label>
+          <label class="cb-label"><input type="checkbox" value="neighbor" onchange="handleNotDoneChange()"> No Neighbor Campaign</label>
+        </div>
+      </div>
     </div>
-    <div class="sidebar-content" id="sb-all"></div>
-    <div class="sidebar-content hidden" id="sb-profit"></div>
-    <div class="sidebar-content hidden" id="sb-dom"></div>
-    <div class="sidebar-content hidden" id="sb-lastcamp"></div>
-    <div class="sidebar-content hidden" id="sb-owned"></div>
-    <div class="sidebar-content hidden" id="sb-ai"></div>
-    <div class="sidebar-content hidden" id="sb-new"></div>
+    <div class="sidebar-content" id="sb-content"></div>
   </div>
   <div class="calendar-wrap">
     <div class="calendar-controls">
@@ -219,17 +285,34 @@
   </div>
 </div>
 <div class="modal-overlay" id="modal"><div class="modal" id="modal-content"></div></div>
+<div class="mcr-overlay" id="mcr-overlay">
+  <div class="mcr-modal">
+    <div class="mcr-header">
+      <div class="mcr-title">📊 Master <span>Campaign Report</span></div>
+      <div class="mcr-filters">
+        <button class="mcr-filter active" data-range="thisweek" onclick="setMCRFilter('thisweek')">This Week</button>
+        <button class="mcr-filter" data-range="yesterday" onclick="setMCRFilter('yesterday')">Yesterday</button>
+        <button class="mcr-filter" data-range="lastweek" onclick="setMCRFilter('lastweek')">Last Week</button>
+        <button class="mcr-filter" data-range="thismonth" onclick="setMCRFilter('thismonth')">This Month</button>
+        <button class="mcr-filter" data-range="lastmonth" onclick="setMCRFilter('lastmonth')">Last Month</button>
+      </div>
+      <button class="mcr-close" onclick="document.getElementById('mcr-overlay').classList.remove('show')">×</button>
+    </div>
+    <div class="mcr-body" id="mcr-body"></div>
+    <div class="mcr-summary" id="mcr-summary"></div>
+  </div>
+</div>
 
 <script>
-let PROPS=[{"id":"L - 0855","address":"Blue Stem Dr,Elkhart,IL,62634","state":"Illinois","county":"Logan County","profit":-4553,"dom":839,"expDays":0,"pod":"Jose","acreage":"0.52","neighborOk":true,"lastCampaign":"2026-03-09","price":"5100.00","mls":"LC - 3068","listedMLS":"Yes","listedFB":"Yes","listingStatus":"Live","propertyType":"Outside city - Inside SubD / No HOA","zillowSaves":"9","ddStatus":"Prem DD Clear","totalLeads":"12","totalQualified":"0","salesHub":"SH-00201","priceDrops":"6","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/22/2026","members":"217"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/30/2026","members":"282"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/4/2026","members":"742"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/7/2026","members":"957"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/5/2026","members":"188"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/9/2026","members":"189"}],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1211","address":"460 Beck Ln,Waverly,TN,37185","state":"Tennessee","county":"Humphreys","profit":45903,"dom":327,"expDays":120,"pod":"Jose","acreage":"17.59","neighborOk":true,"lastCampaign":null,"price":"99900.00","mls":"LC - 7618","listedMLS":"No","listedFB":"Yes","listingStatus":"Needs Update","propertyType":"Outside City - Large Unrestricted (10>)","zillowSaves":"","ddStatus":"In Process","totalLeads":"14","totalQualified":"1","salesHub":"SH-00345","priceDrops":"0","history":[],"isOwned":false,"transactionStage":"Due Diligence"},{"id":"L - 1259","address":"12020 Trailwood Dr,Whitney,TX,76692","state":"Texas","county":"Hill","profit":3499,"dom":272,"expDays":0,"pod":"Jose","acreage":"0.54","neighborOk":true,"lastCampaign":"2026-03-09","price":"6700.00","mls":"LC - 8221","listedMLS":"Yes","listedFB":"Yes","listingStatus":"UC w/o EMD","propertyType":"Outside City - Inside SubD / HOA","zillowSaves":"13","ddStatus":"Prem DD Clear","totalLeads":"23","totalQualified":"0","salesHub":"SH-00394","priceDrops":"6","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/22/2026","members":"582"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/4/2026","members":"740"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/4/2026","members":"866"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"3/9/2026","members":"537"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/9/2026","members":"896"}],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1306","address":",Christine,TX,78012","state":"Texas","county":"Atascosa","profit":-3000,"dom":230,"expDays":0,"pod":"Gabriel","acreage":"0.80","neighborOk":true,"lastCampaign":"2026-03-17","price":"","mls":"LC - 8549","listedMLS":"Yes","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"29","totalQualified":"1","salesHub":"SH-00430","priceDrops":"0","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/23/2026","members":"354"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/22/2026","members":"853"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"2/12/2026","members":"647"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/3/2026","members":"400"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/7/2026","members":"647"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"2/27/2026","members":"646"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/5/2026","members":"252"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/17/2026","members":"646"}],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1314","address":",Christine,TX,78012","state":"Texas","county":"Atascosa","profit":9885,"dom":223,"expDays":0,"pod":"Gabriel","acreage":"0.64","neighborOk":false,"lastCampaign":"2026-03-31","price":"14900.00","mls":"LC - 8622","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"5","totalQualified":"0","salesHub":"SH-00438","priceDrops":"2","history":[{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/31/2026","members":"898"}],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1355","address":",Christine,TX,78012","state":"Texas","county":"Atascosa","profit":1040,"dom":179,"expDays":0,"pod":"Gabriel","acreage":"0.33","neighborOk":false,"lastCampaign":null,"price":"5000.00","mls":"LC - 8801","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"0","totalQualified":"0","salesHub":"SH-00463","priceDrops":"0","history":[],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1358","address":",Christine,TX,78012","state":"Texas","county":"Atascosa","profit":1065,"dom":173,"expDays":0,"pod":"Gabriel","acreage":"0.16","neighborOk":false,"lastCampaign":null,"price":"5000.00","mls":"LC - 8823","listedMLS":"No","listedFB":"No","listingStatus":"Needs Update","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"1","totalQualified":"0","salesHub":"SH-00466","priceDrops":"0","history":[],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1360","address":",Christine,TX,78012","state":"Texas","county":"Atascosa","profit":1065,"dom":159,"expDays":0,"pod":"Gabriel","acreage":"0.31","neighborOk":false,"lastCampaign":null,"price":"5000.00","mls":"LC - 8847","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"2","totalQualified":"0","salesHub":"SH-00468","priceDrops":"0","history":[],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1368","address":",Christine,TX,78012","state":"Texas","county":"Atascosa","profit":1065,"dom":153,"expDays":0,"pod":"Gabriel","acreage":"0.31","neighborOk":false,"lastCampaign":null,"price":"5000.00","mls":"LC - 8887","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"0","totalQualified":"0","salesHub":"SH-00473","priceDrops":"0","history":[],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1369","address":",Christine,TX,78012","state":"Texas","county":"Atascosa","profit":3055,"dom":153,"expDays":0,"pod":"Gabriel","acreage":"0.48","neighborOk":false,"lastCampaign":null,"price":"7500.00","mls":"LC - 8890","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"2","totalQualified":"0","salesHub":"SH-00474","priceDrops":"0","history":[],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1370","address":",Christine,TX,78012","state":"Texas","county":"Atascosa","profit":1065,"dom":153,"expDays":0,"pod":"Gabriel","acreage":"0.32","neighborOk":false,"lastCampaign":null,"price":"5000.00","mls":"LC - 8893","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"1","totalQualified":"0","salesHub":"SH-00475","priceDrops":"0","history":[],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1382","address":"Main St 70,Barnwell,SC,29812","state":"South Carolina","county":"Barnwell","profit":4400,"dom":130,"expDays":17,"pod":"Gabriel","acreage":"1.00","neighborOk":true,"lastCampaign":"2026-03-31","price":"20000.00","mls":"LC - 9086","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Inside SubD / No HOA","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"34","totalQualified":"0","salesHub":"SH-00484","priceDrops":"1","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/17/2026","members":"305"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/1/2026","members":"451"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/2/2026","members":"282"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/10/2026","members":"302"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/26/2026","members":"302"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/4/2026","members":"276"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/16/2026","members":"770"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/31/2026","members":"415"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1386","address":"Valhalla Dr,Cleveland,GA,30528","state":"Georgia","county":"White","profit":6333,"dom":125,"expDays":0,"pod":"Jose","acreage":"1.44","neighborOk":true,"lastCampaign":"2026-04-06","price":"18900.00","mls":"LC - 9117","listedMLS":"Yes","listedFB":"Yes","listingStatus":"Live","propertyType":"Outside City - Inside SubD / HOA","zillowSaves":"3","ddStatus":"Prem DD Clear","totalLeads":"27","totalQualified":"0","salesHub":"SH-00488","priceDrops":"2","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/30/2026","members":"502"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/1/2026","members":"859"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/16/2026","members":"756"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/24/2026","members":"498"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"3/30/2026","members":"92"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/6/2026","members":"36"}],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1392","address":"State Highway 205,Oneonta,NY,13820","state":"New York","county":"Otsego","profit":3043,"dom":112,"expDays":-30,"pod":"Jose","acreage":"0.68","neighborOk":true,"lastCampaign":"2026-03-10","price":"11900.00","mls":"LC - 9176","listedMLS":"No","listedFB":"Yes","listingStatus":"Needs Update","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"0","ddStatus":"Prem DD Clear","totalLeads":"10","totalQualified":"2","salesHub":"SH-00494","priceDrops":"0","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/2/2026","members":"485"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/6/2026","members":"534"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/6/2026","members":"566"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"3/10/2026","members":"272"}],"isOwned":false,"transactionStage":"At Closing"},{"id":"L - 1408","address":"Jutland Rd,Saint Inigoes,MD,20684","state":"Maryland","county":"St. Mary's","profit":10123,"dom":75,"expDays":12,"pod":"Jose","acreage":"25.28","neighborOk":true,"lastCampaign":"2026-04-08","price":"425900.00","mls":"LC - 9314","listedMLS":"Yes","listedFB":"Yes","listingStatus":"Live","propertyType":"Outside City - Water View / Water Front","zillowSaves":"29","ddStatus":"Prem DD Clear","totalLeads":"36","totalQualified":"3","salesHub":"SH-00510","priceDrops":"6","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/27/2026","members":"308"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/9/2026","members":"307"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"2/17/2026","members":"601"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/18/2026","members":"311"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/23/2026","members":"310"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/5/2026","members":"637"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/16/2026","members":"535"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/4/2026","members":"1072"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/5/2026","members":"190"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/3/2026","members":"68"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/5/2026","members":"301"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/12/2026","members":"457"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"1/27/2026","members":"183"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/2/2026","members":"534"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/7/2026","members":"303"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/7/2026","members":"305"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/7/2026","members":"16"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"98"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1409","address":"7768 Della Bitta Ln,Bokeelia,FL,33922","state":"Florida","county":"Lee","profit":-2397,"dom":71,"expDays":-5,"pod":"Jose","acreage":"0.18","neighborOk":false,"lastCampaign":"2026-04-09","price":"59900.00","mls":"LC - 9325","listedMLS":"Yes","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Inside SubD / HOA","zillowSaves":"0","ddStatus":"Prem DD Clear","totalLeads":"10","totalQualified":"2","salesHub":"SH-00511","priceDrops":"4","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/2/2026","members":"891"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/20/2026","members":"964"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/6/2026","members":"1846"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/3/2026","members":"122"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/9/2026","members":"873"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/16/2026","members":"993"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1410","address":"S Medical Lake Rd,Medical Lake,WA,99022","state":"Washington","county":"Spokane","profit":24123,"dom":62,"expDays":26,"pod":"Gabriel","acreage":"2.58","neighborOk":true,"lastCampaign":"2026-04-08","price":"125900.00","mls":"LC - 9340","listedMLS":"Yes","listedFB":"Yes","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"48","ddStatus":"Prem DD Clear","totalLeads":"15","totalQualified":"1","salesHub":"SH-00512","priceDrops":"6","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/10/2026","members":"707"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/17/2026","members":"853"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/21/2026","members":"500"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/23/2026","members":"499"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/11/2026","members":"521"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/3/2026","members":"18"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/4/2026","members":"142"},{"objective":"Price Reduction","channel":"Cold Texting","runDate":"3/30/2026","members":"740"},{"objective":"Price Reduction","channel":"Cold Texting","runDate":"4/3/2026","members":"668"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"324"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1412","address":",Christine,TX,78012","state":"Texas","county":"Atascosa","profit":3700,"dom":56,"expDays":0,"pod":"Gabriel","acreage":"0.46","neighborOk":false,"lastCampaign":null,"price":"7500.00","mls":"LC - 9362","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"0","totalQualified":"0","salesHub":"SH-00514","priceDrops":"0","history":[],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1414","address":"108 Wadley St,Sylvania,GA,30467","state":"Georgia","county":"Screven","profit":9295,"dom":54,"expDays":26,"pod":"Jose","acreage":"3.68","neighborOk":true,"lastCampaign":"2026-04-08","price":"23500.00","mls":"LC - 9376","listedMLS":"Yes","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"13","ddStatus":"Prem DD Clear","totalLeads":"63","totalQualified":"1","salesHub":"SH-00516","priceDrops":"3","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/19/2026","members":"467"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/2/2026","members":"556"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/2/2026","members":"638"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/2/2026","members":"58"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/5/2026","members":"269"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/9/2026","members":"884"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/16/2026","members":"1152"},{"objective":"Neighbor Reach Out","channel":"Cold Calling","runDate":"2/24/2026","members":"49"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"356"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"74"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"507"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1418","address":",Sylacauga,AL,35151","state":"Alabama","county":"Talladega","profit":6003,"dom":47,"expDays":16,"pod":"Gabriel","acreage":"15.46","neighborOk":true,"lastCampaign":"2026-04-11","price":"29900.00","mls":"LC - 9409","listedMLS":"Yes","listedFB":"Yes","listingStatus":"UC w/o EMD","propertyType":"Outside City - Inside SubD / HOA","zillowSaves":"15","ddStatus":"Prem DD Clear","totalLeads":"43","totalQualified":"2","salesHub":"SH-00520","priceDrops":"4","history":[{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"3/2/2026","members":"572"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/9/2026","members":"655"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/3/2026","members":"73"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/27/2026","members":"86"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/26/2026","members":"499"},{"objective":"Price Reduction","channel":"Cold Texting","runDate":"3/27/2026","members":"585"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/7/2026","members":"577"},{"objective":"Price Reduction","channel":"Cold Texting","runDate":"4/10/2026","members":"544"},{"objective":"Price Reduction","channel":"Cold Texting","runDate":"4/10/2026","members":"578"},{"objective":"Price Reduction","channel":"Cold Texting","runDate":"4/11/2026","members":"551"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1420","address":"8014 Jersey Rd,Salisbury,MD,21801","state":"Maryland","county":"Wicomico","profit":18903,"dom":40,"expDays":41,"pod":"Gabriel","acreage":"4.50","neighborOk":true,"lastCampaign":"2026-04-08","price":"99900.00","mls":"LC - 9431","listedMLS":"Yes","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"12","ddStatus":"Prem DD Clear","totalLeads":"40","totalQualified":"1","salesHub":"SH-00522","priceDrops":"4","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/6/2026","members":"1585"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"3/9/2026","members":"492"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"3/11/2026","members":"382"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/13/2026","members":"40"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/13/2026","members":"974"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/14/2026","members":"1021"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/12/2026","members":"388"},{"objective":"Buyer Base Reach Out","channel":"Cold Calling","runDate":"3/24/2026","members":"50"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"26"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1423","address":"County Rd 4557,Bivins,TX,75555","state":"Texas","county":"Cass","profit":28503,"dom":33,"expDays":54,"pod":"Jose","acreage":"14.62","neighborOk":true,"lastCampaign":"2026-04-10","price":"79900.00","mls":"LC - 9453","listedMLS":"Yes","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Large Unrestricted (10>)","zillowSaves":"10","ddStatus":"Prem DD Clear","totalLeads":"12","totalQualified":"0","salesHub":"SH-00525","priceDrops":"2","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/11/2026","members":"701"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/12/2026","members":"287"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/16/2026","members":"1312"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"3/24/2026","members":"149"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/25/2026","members":"436"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/1/2026","members":"27"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/9/2026","members":"224"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/10/2026","members":"988"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1424","address":"Hidden Creek 2 Lot 23,Deep Gap,NC,28618","state":"North Carolina","county":"Wilkes","profit":15195,"dom":33,"expDays":51,"pod":"Jose","acreage":"10.00","neighborOk":true,"lastCampaign":"2026-04-13","price":"59995.00","mls":"LC - 9457","listedMLS":"Yes","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Inside SubD / HOA","zillowSaves":"4","ddStatus":"Prem DD Clear","totalLeads":"41","totalQualified":"0","salesHub":"SH-00526","priceDrops":"3","history":[{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/12/2026","members":"594"},{"objective":"","channel":"Cold Texting","runDate":"3/12/2026","members":"34"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/11/2026","members":"1001"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/11/2026","members":"329"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/13/2026","members":"416"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/13/2026","members":"128"},{"objective":"Realtors Reach Out","channel":"Cold Calling","runDate":"3/13/2026","members":"120"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/11/2026","members":"81"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"3/28/2026","members":"286"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/30/2026","members":"491"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/2/2026","members":"87"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/13/2026","members":"798"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1425","address":"Cr 18,Richville,NY,13681","state":"New York","county":"St. Lawrence","profit":18763,"dom":22,"expDays":86,"pod":"Jose","acreage":"11.40","neighborOk":false,"lastCampaign":"2026-04-10","price":"37900.00","mls":"LC - 9474","listedMLS":"Yes","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Large Unrestricted (10>)","zillowSaves":"11","ddStatus":"Prem DD Clear","totalLeads":"9","totalQualified":"0","salesHub":"SH-00527","priceDrops":"1","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/30/2026","members":"95"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/23/2026","members":"218"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/27/2026","members":"533"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/27/2026","members":"10"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/9/2026","members":"445"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/10/2026","members":"586"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/9/2026","members":"31"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1426","address":"Charlie Lawson Rd,Virgilina,VA,24598","state":"Virginia","county":"Halifax County","profit":12123,"dom":22,"expDays":56,"pod":"Gabriel","acreage":"4.00","neighborOk":false,"lastCampaign":"2026-04-13","price":"25900.00","mls":"LC - 9478","listedMLS":"Yes","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"3","ddStatus":"Prem DD Clear","totalLeads":"3","totalQualified":"0","salesHub":"SH-00528","priceDrops":"2","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/23/2026","members":"229"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/24/2026","members":"130"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/31/2026","members":"510"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/27/2026","members":"49"},{"objective":"Price Reduction","channel":"Cold Texting","runDate":"4/13/2026","members":"646"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1428","address":"County Road 323,Orange Grove,TX,78372","state":"Texas","county":"Jim Wells","profit":18003,"dom":19,"expDays":65,"pod":"Gabriel","acreage":"2.16","neighborOk":true,"lastCampaign":"2026-04-10","price":"29900.00","mls":"LC - 9486","listedMLS":"Yes","listedFB":"Yes","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"0","ddStatus":"Prem DD Clear","totalLeads":"26","totalQualified":"1","salesHub":"SH-00530","priceDrops":"0","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/25/2026","members":"169"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/26/2026","members":"84"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/30/2026","members":"137"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/2/2026","members":"387"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"135"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/10/2026","members":"317"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1429","address":"S Grueser Rd,Racine,OH,45771","state":"Ohio","county":"Meigs","profit":17250,"dom":18,"expDays":63,"pod":"Jose","acreage":"2.00","neighborOk":false,"lastCampaign":"2026-04-10","price":"25000.00","mls":"LC - 9491","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"8","totalQualified":"0","salesHub":"SH-00531","priceDrops":"0","history":[{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/26/2026","members":"27"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/26/2026","members":"256"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/25/2026","members":"119"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/26/2026","members":"160"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/31/2026","members":"176"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/2/2026","members":"31"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/10/2026","members":"272"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1430","address":"Nixon Run Rd,Martins Ferry,OH,43935","state":"Ohio","county":"Belmont","profit":5700,"dom":18,"expDays":62,"pod":"Gabriel","acreage":"1.11","neighborOk":false,"lastCampaign":"2026-03-31","price":"10000.00","mls":"LC - 9496","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"10","totalQualified":"0","salesHub":"SH-00532","priceDrops":"0","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/26/2026","members":"185"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/30/2026","members":"127"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/31/2026","members":"320"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1431","address":"Whippoorwill,Effingham,SC,29541","state":"South Carolina","county":"Florence","profit":25165,"dom":12,"expDays":164,"pod":"Gabriel","acreage":"3.08","neighborOk":false,"lastCampaign":"2026-04-08","price":"44500.00","mls":"LC - 9518","listedMLS":"No","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"7","totalQualified":"0","salesHub":"SH-00533","priceDrops":"0","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/2/2026","members":"398"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/7/2026","members":"34"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/7/2026","members":"705"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"168"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1432","address":"2231 Mckeen Ln,Effingham,SC,29541","state":"South Carolina","county":"Florence","profit":17115,"dom":8,"expDays":71,"pod":"Gabriel","acreage":"3.08","neighborOk":false,"lastCampaign":null,"price":"29500.00","mls":"LC - 9521","listedMLS":"No","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"2","totalQualified":"0","salesHub":"SH-00534","priceDrops":"0","history":[],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1433","address":"Route 152,Joppa,MD,21085","state":"Maryland","county":"Harford","profit":129403,"dom":12,"expDays":70,"pod":"Gabriel","acreage":"3.80","neighborOk":false,"lastCampaign":"2026-04-10","price":"249900.00","mls":"LC - 9511","listedMLS":"Yes","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"14","totalQualified":"0","salesHub":"SH-00535","priceDrops":"0","history":[{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/1/2026","members":"16"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/6/2026","members":"675"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/6/2026","members":"687"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/9/2026","members":"664"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/10/2026","members":"375"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/10/2026","members":"42"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1434","address":"Ch #78,Belmont,OH,43718","state":"Ohio","county":"Belmont","profit":62430,"dom":12,"expDays":75,"pod":"Jose","acreage":"50.88","neighborOk":false,"lastCampaign":"2026-04-10","price":"219000.00","mls":"LC - 9515","listedMLS":"No","listedFB":"No","listingStatus":"UC w/o EMD","propertyType":"Outside City - Large Unrestricted (10>)","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"17","totalQualified":"0","salesHub":"SH-00536","priceDrops":"0","history":[{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/6/2026","members":"14"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/1/2026","members":"286"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/10/2026","members":"488"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/10/2026","members":"39"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/9/2026","members":"176"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1435","address":"Sanborn Rd,Acton,ME,4001","state":"Maine","county":"York","profit":75903,"dom":8,"expDays":72,"pod":"Jose","acreage":"34.55","neighborOk":false,"lastCampaign":"2026-04-09","price":"199900.00","mls":"LC - 9524","listedMLS":"No","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Large Unrestricted (10>)","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"20","totalQualified":"0","salesHub":"SH-00537","priceDrops":"0","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/3/2026","members":"739"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"23"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/9/2026","members":"21"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"555"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/9/2026","members":"274"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1436","address":"S On Hwy 496,Newberry,SC,29108","state":"South Carolina","county":"Newberry","profit":6803,"dom":8,"expDays":71,"pod":"Jose","acreage":"1.21","neighborOk":false,"lastCampaign":"2026-04-13","price":"19900.00","mls":"LC - 9529","listedMLS":"No","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"16","totalQualified":"0","salesHub":"SH-00538","priceDrops":"0","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/1/2026","members":"366"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/6/2026","members":"20"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/13/2026","members":"306"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1437","address":"Walker Rd,Utica,NY,13502","state":"New York","county":"Oneida","profit":18703,"dom":5,"expDays":82,"pod":"Gabriel","acreage":"11.63","neighborOk":false,"lastCampaign":"2026-04-13","price":"39900.00","mls":"LC - 9539","listedMLS":"Yes","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Highway Lot","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"4","totalQualified":"0","salesHub":"SH-00539","priceDrops":"0","history":[{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/11/2026","members":"566"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/11/2026","members":"13"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/11/2026","members":"0"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/13/2026","members":"751"}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1438","address":"2131 Oakville Waltz Rd,New Boston,MI,48164","state":"Michigan","county":"Monroe County","profit":13303,"dom":5,"expDays":77,"pod":"Jose","acreage":"0.60","neighborOk":false,"lastCampaign":"2026-04-11","price":"19900.00","mls":"LC - 9536","listedMLS":"Yes","listedFB":"No","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"2","totalQualified":"0","salesHub":"SH-00540","priceDrops":"0","history":[{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/10/2026","members":"111"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/11/2026","members":"688"}],"isOwned":false,"transactionStage":"Clear to Flip"}];
+let PROPS=[{"id":"L - 0855","address":"Blue Stem Dr,Elkhart,IL,62634","state":"Illinois","county":"Logan County","profit":-4553,"dom":841,"expDays":0,"pod":"Jose","acreage":"0.52","neighborOk":true,"lastCampaign":"2026-03-09","price":"5100.00","mls":"LC - 3068","listedMLS":"Yes","listedFB":"Yes","listingStatus":"Live","propertyType":"Outside city - Inside SubD / No HOA","zillowSaves":"9","ddStatus":"Prem DD Clear","totalLeads":"12","totalQualified":"0","salesHub":"SH-00201","priceDrops":"6","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/22/2026","members":"217","counties":"Logan County (62634), Sangamon County (62701), Menard County (62642), Tazewell County (61611), Mason County (62664)"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/30/2026","members":"282","counties":"Logan County (62634), Sangamon County (62701), Menard County (62642), DeWitt County (61727), Macon County (62521), Christian County (62563)"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/9/2026","members":"189","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/5/2026","members":"188","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/7/2026","members":"957","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/4/2026","members":"742","counties":""}],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1211","address":"460 Beck Ln,Waverly,TN,37185","state":"Tennessee","county":"Humphreys","profit":45903,"dom":329,"expDays":118,"pod":"Jose","acreage":"17.59","neighborOk":false,"lastCampaign":null,"price":"99900.00","mls":"LC - 7618","listedMLS":"No","listedFB":"Yes","listingStatus":"Needs Update","propertyType":"Outside City - Large Unrestricted (10>)","zillowSaves":"","ddStatus":"In Process","totalLeads":"14","totalQualified":"1","salesHub":"SH-00345","priceDrops":"0","history":[],"isOwned":false,"transactionStage":"Due Diligence"},{"id":"L - 1259","address":"12020 Trailwood Dr,Whitney,TX,76692","state":"Texas","county":"Hill","profit":3499,"dom":274,"expDays":0,"pod":"Jose","acreage":"0.54","neighborOk":true,"lastCampaign":"2026-03-09","price":"6700.00","mls":"LC - 8221","listedMLS":"Yes","listedFB":"Yes","listingStatus":"UC w/o EMD","propertyType":"Outside City - Inside SubD / HOA","zillowSaves":"13","ddStatus":"Prem DD Clear","totalLeads":"23","totalQualified":"0","salesHub":"SH-00394","priceDrops":"6","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/22/2026","members":"582","counties":"Hill County (76692), Bosque County (76634), McLennan County (76701), Johnson County (76059), Ellis County (75110)"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/4/2026","members":"740","counties":"Hill:76692,76645,76678 | McLennan:76705,76706 | Johnson:76031,76028 | Ellis:75165,76065 | Navarro:75110"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/9/2026","members":"896","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"3/9/2026","members":"537","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/4/2026","members":"866","counties":""}],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1306","address":",Christine,TX,78012","state":"Texas","county":"Atascosa","profit":-3000,"dom":232,"expDays":0,"pod":"Gabriel","acreage":"0.80","neighborOk":true,"lastCampaign":"2026-03-17","price":"","mls":"LC - 8549","listedMLS":"Yes","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"29","totalQualified":"1","salesHub":"SH-00430","priceDrops":"0","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/22/2026","members":"853","counties":"Atascosa\nFrio\nBexar"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/23/2026","members":"354","counties":"Atascosa"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/17/2026","members":"646","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/5/2026","members":"252","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"2/27/2026","members":"646","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"2/12/2026","members":"647","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/7/2026","members":"647","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/3/2026","members":"400","counties":""}],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1314","address":",Christine,TX,78012","state":"Texas","county":"Atascosa","profit":9885,"dom":225,"expDays":0,"pod":"Gabriel","acreage":"0.64","neighborOk":true,"lastCampaign":"2026-03-31","price":"14900.00","mls":"LC - 8622","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"5","totalQualified":"0","salesHub":"SH-00438","priceDrops":"2","history":[{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/31/2026","members":"898","counties":""}],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1355","address":",Christine,TX,78012","state":"Texas","county":"Atascosa","profit":1040,"dom":181,"expDays":0,"pod":"Gabriel","acreage":"0.33","neighborOk":true,"lastCampaign":null,"price":"5000.00","mls":"LC - 8801","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"0","totalQualified":"0","salesHub":"SH-00463","priceDrops":"0","history":[],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1358","address":",Christine,TX,78012","state":"Texas","county":"Atascosa","profit":1065,"dom":175,"expDays":0,"pod":"Gabriel","acreage":"0.16","neighborOk":true,"lastCampaign":null,"price":"5000.00","mls":"LC - 8823","listedMLS":"No","listedFB":"No","listingStatus":"Needs Update","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"1","totalQualified":"0","salesHub":"SH-00466","priceDrops":"0","history":[],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1360","address":",Christine,TX,78012","state":"Texas","county":"Atascosa","profit":1065,"dom":161,"expDays":0,"pod":"Gabriel","acreage":"0.31","neighborOk":true,"lastCampaign":null,"price":"5000.00","mls":"LC - 8847","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"2","totalQualified":"0","salesHub":"SH-00468","priceDrops":"0","history":[],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1368","address":",Christine,TX,78012","state":"Texas","county":"Atascosa","profit":1065,"dom":155,"expDays":0,"pod":"Gabriel","acreage":"0.31","neighborOk":true,"lastCampaign":null,"price":"5000.00","mls":"LC - 8887","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"0","totalQualified":"0","salesHub":"SH-00473","priceDrops":"0","history":[],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1369","address":",Christine,TX,78012","state":"Texas","county":"Atascosa","profit":3055,"dom":155,"expDays":0,"pod":"Gabriel","acreage":"0.48","neighborOk":true,"lastCampaign":null,"price":"7500.00","mls":"LC - 8890","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"2","totalQualified":"0","salesHub":"SH-00474","priceDrops":"0","history":[],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1370","address":",Christine,TX,78012","state":"Texas","county":"Atascosa","profit":1065,"dom":155,"expDays":0,"pod":"Gabriel","acreage":"0.48","neighborOk":true,"lastCampaign":null,"price":"5000.00","mls":"LC - 8893","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"1","totalQualified":"0","salesHub":"SH-00475","priceDrops":"0","history":[],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1382","address":"Main St 70,Barnwell,SC,29812","state":"South Carolina","county":"Barnwell","profit":4400,"dom":132,"expDays":15,"pod":"Gabriel","acreage":"1.00","neighborOk":false,"lastCampaign":"2026-04-14","price":"20000.00","mls":"LC - 9086","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Inside SubD / No HOA","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"35","totalQualified":"0","salesHub":"SH-00484","priceDrops":"1","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/1/2026","members":"451","counties":"Barnwell county sc, and \naiken"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/31/2026","members":"415","counties":"Barnwell \nBamberg\nAllendale\nOrangeburg\nBurke\nHampton"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/26/2026","members":"302","counties":"Barnwell \nBamberg\nAllendale\nOrangeburg\nBurke\nHampton"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/14/2026","members":"554","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/16/2026","members":"770","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/4/2026","members":"276","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/10/2026","members":"302","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/2/2026","members":"282","counties":""},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/17/2026","members":"305","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1386","address":"Valhalla Dr,Cleveland,GA,30528","state":"Georgia","county":"White","profit":4393,"dom":127,"expDays":0,"pod":"Jose","acreage":"1.44","neighborOk":false,"lastCampaign":"2026-04-06","price":"16900.00","mls":"LC - 9117","listedMLS":"Yes","listedFB":"Yes","listingStatus":"Live","propertyType":"Outside City - Inside SubD / HOA","zillowSaves":"3","ddStatus":"Prem DD Clear","totalLeads":"31","totalQualified":"0","salesHub":"SH-00488","priceDrops":"3","history":[{"objective":"Realtors Reach Out","channel":"Cold Calling","runDate":"3/18/2026","members":"105","counties":"White\nLumpkin\nRabun Gap\nStephens\nDawson"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/16/2026","members":"756","counties":"White:30528 | Habersham:30501,30531 | Lumpkin:30533 | Hall:30501,30506 | Stephens:30531 | Union:30512"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/30/2026","members":"502","counties":"Forsyth GA 30040;"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/6/2026","members":"36","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/1/2026","members":"859","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/24/2026","members":"498","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Calling","runDate":"3/16/2026","members":"97","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"3/30/2026","members":"92","counties":""}],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1392","address":"State Highway 205,Oneonta,NY,13820","state":"New York","county":"Otsego","profit":3043,"dom":114,"expDays":-32,"pod":"Jose","acreage":"0.68","neighborOk":false,"lastCampaign":"2026-03-10","price":"11900.00","mls":"LC - 9176","listedMLS":"No","listedFB":"Yes","listingStatus":"Needs Update","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"0","ddStatus":"Prem DD Clear","totalLeads":"10","totalQualified":"2","salesHub":"SH-00494","priceDrops":"0","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/6/2026","members":"566","counties":"Otsego County: 13820 (Oneonta), 13827 (Cooperstown) Delaware County: 13753 (Delhi), 13754 (Deposit) Chenango County: 13760 (Norwich), 13774 (Sherburne) Schoharie County: 12157 (Middleburgh), 12168 (Schoharie) Madison County: 13413 (Cazenovia), 13035 ("},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/2/2026","members":"485","counties":"Otsego County, Chenango County, NY, Delaware County, NY Schoharie County, New York"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/6/2026","members":"534","counties":"Otsego (13820), Delaware (13753), Schoharie (12157), Chenango (13815), Broome (13901), Madison (13402), Herkimer (13350), Oneida (13421), Montgomery (12010), Albany (12203), Greene (12414), Ulster (12401)"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"3/10/2026","members":"272","counties":""}],"isOwned":false,"transactionStage":"At Closing"},{"id":"L - 1408","address":"Jutland Rd,Saint Inigoes,MD,20684","state":"Maryland","county":"St. Mary's","profit":10123,"dom":77,"expDays":10,"pod":"Jose","acreage":"25.28","neighborOk":false,"lastCampaign":"2026-04-08","price":"425900.00","mls":"LC - 9314","listedMLS":"Yes","listedFB":"Yes","listingStatus":"Live","propertyType":"Outside City - Water View / Water Front","zillowSaves":"29","ddStatus":"Prem DD Clear","totalLeads":"36","totalQualified":"3","salesHub":"SH-00510","priceDrops":"6","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/7/2026","members":"303","counties":"St. Mary?s MD 20684; - $4.36\n\nAlready added in SF - we can do buyer base campaign\nCalvert MD 20639; Charles MD 20601; Prince George?s MD 20772; King George VA 22485; Westmoreland VA 22443"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/9/2026","members":"307","counties":"St. Mary?s 20653,20690,20692,20650 | Calvert 20615,20619,20657,20639 | Charles 20602,20603,20646 | Anne Arundel 21012,21060,21122 | Prince George?s 20735,20744,20745 | King George VA 22443,22482"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/27/2026","members":"308","counties":"St. Mary?s (20684), Calvert (20678), Charles (20601), Anne Arundel (21401), Prince George?s (20772), King George VA (22485)"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/23/2026","members":"310","counties":"Calvert County, MD\nCharles County, MD\nSt. Mary?s County, MD\nKing George County, VA\nWestmoreland County, VA\nRichmond County, VA"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/18/2026","members":"311","counties":"Calvert County, MD\nCharles County, MD\nSt. Mary?s County, MD\nKing George County, VA\nWestmoreland County, VA\nRichmond County, VA"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/2/2026","members":"534","counties":"Anne Arundel County, MD ? 21401, 21146, 21122, 21037\n\nPrince George?s County, MD ? 20772, 20735, 20774, 20744\n\nMontgomery County, MD ? 20850, 20854, 20874, 20910"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/4/2026","members":"1072","counties":"Anne Arundel (21401, 21122)\n\nPrince George?s (20772, 20774)\n\nMontgomery (20850, 20854)\n\nHoward (21044)\n\nVirginia (DC Metro Wealth)\n\nFairfax (22030, 22033)\n\nLoudoun (20147, 20175)\n\nArlington (22201)\n\nPrince William (20112)"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"98","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/7/2026","members":"305","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/7/2026","members":"16","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/12/2026","members":"457","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/5/2026","members":"190","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/5/2026","members":"301","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/3/2026","members":"68","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"2/17/2026","members":"601","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/16/2026","members":"535","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/5/2026","members":"637","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"1/27/2026","members":"183","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1409","address":"7768 Della Bitta Ln,Bokeelia,FL,33922","state":"Florida","county":"Lee","profit":-2397,"dom":73,"expDays":-7,"pod":"Jose","acreage":"0.18","neighborOk":false,"lastCampaign":"2026-04-09","price":"59900.00","mls":"LC - 9325","listedMLS":"Yes","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Inside SubD / HOA","zillowSaves":"0","ddStatus":"Prem DD Clear","totalLeads":"10","totalQualified":"2","salesHub":"SH-00511","priceDrops":"4","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"1/20/2026","members":"964","counties":"Lee County (33922, 33904), Charlotte County (33948), Collier County (34102), Hendry County (33935)"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/16/2026","members":"993","counties":"Lee 33922, Charlotte 33980, Collier 34112, Hendry 33935, Sarasota 34236, DeSoto 34266"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/2/2026","members":"891","counties":"Lee (33922, 33956); Charlotte (33948, 33952); Collier (34120, 34119); Hendry (33935); Glades (33944)\n\nDeip's Property\nLocation: 7768 Della Bitta Ln,Bokeelia FL 33922\nCounty: Lee"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/6/2026","members":"1846","counties":"Counties)Lee County (33922, 33904), Charlotte County (33948), Collier County (34102), Hendry County (33935)"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/9/2026","members":"873","counties":"Collier FL"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/3/2026","members":"122","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1410","address":"S Medical Lake Rd,Medical Lake,WA,99022","state":"Washington","county":"Spokane","profit":24123,"dom":64,"expDays":24,"pod":"Gabriel","acreage":"2.58","neighborOk":false,"lastCampaign":"2026-04-15","price":"125900.00","mls":"LC - 9340","listedMLS":"Yes","listedFB":"Yes","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"48","ddStatus":"Prem DD Clear","totalLeads":"18","totalQualified":"1","salesHub":"SH-00512","priceDrops":"6","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/10/2026","members":"707","counties":"Spokane county WA\nLincoln County, WA\nStevens County, WA\nPend Oreille County, WA\nWhitman County, WA"},{"objective":"Price Reduction","channel":"Cold Texting","runDate":"4/3/2026","members":"668","counties":"Lincoln\nSpokane\nWhitman\nStevens\nPend Oreille"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"324","counties":"Had limit credits in Apify, these are not available in landinsight\nWhitman County, WA\nKootenai County, ID\nBonner County, ID\n\nBenewah County, ID - land insights\nFerry County, WA\nAdams County, WA"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/21/2026","members":"500","counties":"Grant County, WA\nFranklin County, WA\nFerry County, WA\nSpokane County, WA\nLincoln County, WA"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/17/2026","members":"853","counties":"Adams County, WA\nFerry County, WA\nBonner County ID\nKootenai County\tID"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/15/2026","members":"707","counties":""},{"objective":"Price Reduction","channel":"Cold Texting","runDate":"3/30/2026","members":"740","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/4/2026","members":"142","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/3/2026","members":"18","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/23/2026","members":"499","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"2/11/2026","members":"521","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1412","address":",Christine,TX,78012","state":"Texas","county":"Atascosa","profit":3700,"dom":58,"expDays":0,"pod":"Gabriel","acreage":"0.48","neighborOk":true,"lastCampaign":null,"price":"7500.00","mls":"LC - 9362","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"0","totalQualified":"0","salesHub":"SH-00514","priceDrops":"0","history":[],"isOwned":true,"transactionStage":"TAH - Owned"},{"id":"L - 1414","address":"108 Wadley St,Sylvania,GA,30467","state":"Georgia","county":"Screven","profit":5803,"dom":56,"expDays":24,"pod":"Jose","acreage":"3.68","neighborOk":false,"lastCampaign":"2026-04-15","price":"19900.00","mls":"LC - 9376","listedMLS":"Yes","listedFB":"Yes","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"13","ddStatus":"Prem DD Clear","totalLeads":"71","totalQualified":"1","salesHub":"SH-00516","priceDrops":"4","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/19/2026","members":"467","counties":"new property seller name is Willie Wadley: \nScreven County, GA\nBulloch County, GA\nJenkins County, GA\nBurke County, GA\nEffingham County, GA\nBryan County, GA\nCandler County, GA\nEmanuel County, GA\nHampton County, SC\nAllendale County, SC"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"356","counties":"Effingham GA 31326; -$6.090"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/2/2026","members":"638","counties":"Chatham, GA (31401)\n\nRichmond, GA (30901)\n\nColumbia, GA (30809)\n\nLiberty, GA (31313)\n\nTattnall, GA (30427)\nChatham (31401) ?\n\nRichmond (30901) ? Augusta market\n\nColumbia (30809) ? \n\nEvans (30436) ?"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/2/2026","members":"556","counties":"Chatham, GA (31401)\n\nRichmond, GA (30901)\n\nColumbia, GA (30809)\n\nLiberty, GA (31313)\n\nTattnall, GA (30427)"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/16/2026","members":"1152","counties":"30446 Emanuel GA, 30401 Emanuel GA, 30470 Tattnall GA, 30434 Tattnall GA, 30427 Evans GA, 30420 Bulloch GA, 30461 Bulloch GA, 30830 Burke GA"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/15/2026","members":"638","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"74","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"507","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/9/2026","members":"884","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/5/2026","members":"269","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/2/2026","members":"58","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Calling","runDate":"2/24/2026","members":"49","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1418","address":",Sylacauga,AL,35151","state":"Alabama","county":"Talladega","profit":6003,"dom":49,"expDays":14,"pod":"Gabriel","acreage":"15.46","neighborOk":true,"lastCampaign":"2026-04-11","price":"29900.00","mls":"LC - 9409","listedMLS":"Yes","listedFB":"Yes","listingStatus":"UC w/o EMD","propertyType":"Outside City - Inside SubD / HOA","zillowSaves":"15","ddStatus":"Prem DD Clear","totalLeads":"43","totalQualified":"2","salesHub":"SH-00520","priceDrops":"4","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/26/2026","members":"499","counties":"Talladega\nCoosa\nShelby\nClay"},{"objective":"Price Reduction","channel":"Cold Texting","runDate":"4/11/2026","members":"551","counties":"St. Clair\nCalhoun\nCleburne\nChilton\nElmore\nJefferson\nTalladega"},{"objective":"Price Reduction","channel":"Cold Texting","runDate":"3/27/2026","members":"585","counties":"St. Clair\nCalhoun\nCleburne\nChilton\nElmore\nJefferson\nTalladega"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"2/27/2026","members":"86","counties":"St. Clair\nCalhoun\nCleburne\nChilton\nElmore\nJefferson"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/7/2026","members":"577","counties":"Shelby- $8.350"},{"objective":"Price Reduction","channel":"Cold Texting","runDate":"4/10/2026","members":"544","counties":"Scraped in land insight\n\nTalladega\nSt. Clair\nCalhoun\nCleburne\nChilton \nElmore \nJefferson \n\nSend at least 700 text Thanks"},{"objective":"Price Reduction","channel":"Cold Texting","runDate":"4/10/2026","members":"578","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/9/2026","members":"655","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/3/2026","members":"73","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"3/2/2026","members":"572","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1420","address":"8014 Jersey Rd,Salisbury,MD,21801","state":"Maryland","county":"Wicomico","profit":18903,"dom":42,"expDays":39,"pod":"Gabriel","acreage":"4.50","neighborOk":false,"lastCampaign":"2026-04-14","price":"99900.00","mls":"LC - 9431","listedMLS":"Yes","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"12","ddStatus":"Prem DD Clear","totalLeads":"40","totalQualified":"1","salesHub":"SH-00522","priceDrops":"4","history":[{"objective":"Price Reduction","channel":"Cold Texting","runDate":"4/9/2026","members":"394","counties":"Wicomico - we already have leads for this county in SF\n\nIf we can choose at least 700 leads thank"},{"objective":"Buyer Base Reach Out","channel":"Cold Calling","runDate":"4/14/2026","members":"394","counties":"Wicomico - we already have leads for this county in SF\n\nAdded 394 leads Dated: January 1, 2026- April 14, 2026"},{"objective":"Buyer Base Reach Out","channel":"Cold Calling","runDate":"3/24/2026","members":"50","counties":"Wicomico - we already have leads for this county in SF"},{"objective":"Price Reduction","channel":"Cold Texting","runDate":"4/13/2026","members":"394","counties":"Wicomico\nSomerset\nWorcester\nDorchester"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/12/2026","members":"388","counties":"Wicomico\nSomerset\nWorcester\nDorchester"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/13/2026","members":"974","counties":"Kent\nWicomico\nSomerset\nWorcester\nDorchester"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/6/2026","members":"1585","counties":"Caroline\nTalbot\nQueen Anne's\nKent"},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"26","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/14/2026","members":"1021","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"3/11/2026","members":"382","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/13/2026","members":"40","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"3/9/2026","members":"492","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1423","address":"County Rd 4557,Bivins,TX,75555","state":"Texas","county":"Cass","profit":17833,"dom":35,"expDays":52,"pod":"Jose","acreage":"14.62","neighborOk":false,"lastCampaign":"2026-04-14","price":"68900.00","mls":"LC - 9453","listedMLS":"Yes","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Large Unrestricted (10>)","zillowSaves":"10","ddStatus":"Prem DD Clear","totalLeads":"12","totalQualified":"0","salesHub":"SH-00525","priceDrops":"3","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/9/2026","members":"224","counties":"Franklin TX 75457; Miller AR 71854; Lafayette AR 71845- LAND INSIGHTS\nUpshur TX 75644- $3.820"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/12/2026","members":"287","counties":"Cass County (75555), Bowie County (75501, 75503), Morris County (75668), Marion County (75638), Titus County (75455), Miller County AR (71854), Franklin County TX (75457), Red River County (75426)."},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/11/2026","members":"701","counties":"Camp County (75486), Upshur County (75644), Gregg County (75601), Harrison County (75670), Panola County (75633), Hopkins County (75482), Delta County (75432), Wood County (75773)."},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/10/2026","members":"988","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/14/2026","members":"124","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"3/24/2026","members":"149","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/1/2026","members":"27","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/25/2026","members":"436","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/16/2026","members":"1312","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1424","address":"Hidden Creek 2 Lot 23,Deep Gap,NC,28618","state":"North Carolina","county":"Wilkes","profit":11223,"dom":35,"expDays":49,"pod":"Jose","acreage":"10.00","neighborOk":false,"lastCampaign":"2026-04-15","price":"55900.00","mls":"LC - 9457","listedMLS":"Yes","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Inside SubD / HOA","zillowSaves":"4","ddStatus":"Prem DD Clear","totalLeads":"48","totalQualified":"0","salesHub":"SH-00526","priceDrops":"4","history":[{"objective":"Realtors Reach Out","channel":"Cold Calling","runDate":"3/13/2026","members":"120","counties":"Yancey NC, 28777 Washington TN, 37604 Washington TN, 37615 Sullivan TN"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/11/2026","members":"329","counties":"Wilkes County (28618), Watauga County (28607), Ashe County (28640), Caldwell County (28645), Alexander County (28601), Alleghany County (28675), Yadkin County (27055)."},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/2/2026","members":"87","counties":"Watauga NC 28607; Wilkes NC 28697"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/13/2026","members":"416","counties":"Surry County (27030), Iredell County (28677), Davie County (27028), Forsyth County (27101), Catawba County (28613), Avery County (28604), Burke County (28655)"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/15/2026","members":"500","counties":"Mecklenburg:28202,28205,28210;"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/14/2026","members":"133","counties":"Grayson VA, Smyth VA"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/11/2026","members":"61","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/13/2026","members":"798","counties":""},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/30/2026","members":"491","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"3/28/2026","members":"286","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/12/2026","members":"594","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/11/2026","members":"81","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/13/2026","members":"128","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/11/2026","members":"1001","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1425","address":"Cr 18,Richville,NY,13681","state":"New York","county":"St. Lawrence","profit":15853,"dom":24,"expDays":84,"pod":"Jose","acreage":"11.40","neighborOk":false,"lastCampaign":"2026-04-10","price":"34900.00","mls":"LC - 9474","listedMLS":"Yes","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Large Unrestricted (10>)","zillowSaves":"11","ddStatus":"Prem DD Clear","totalLeads":"9","totalQualified":"0","salesHub":"SH-00527","priceDrops":"2","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/23/2026","members":"218","counties":"St. Lawrence County Jefferson County ( Lewis County  Franklin County \n\nAll zip codes in these areas has been targeted\n\nhttps://docs.google.com/spreadsheets/d/1ijxsKRnSlV0Xrj6xjZjzVYadQDbLXN5lSKvSkiojg2w/edit?usp=sharing"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/30/2026","members":"95","counties":"Oneida NY 13440"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/9/2026","members":"445","counties":"Franklin:12953,12967,12986\nJefferson:13601,13619,13637,13685\nOnondaga:13202,13210,13215\nMonroe:14604,14609,14623"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/9/2026","members":"31","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/10/2026","members":"586","counties":""},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/27/2026","members":"533","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/27/2026","members":"10","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1426","address":"Charlie Lawson Rd,Virgilina,VA,24598","state":"Virginia","county":"Halifax County","profit":10183,"dom":24,"expDays":54,"pod":"Gabriel","acreage":"4.00","neighborOk":false,"lastCampaign":"2026-04-15","price":"23900.00","mls":"LC - 9478","listedMLS":"Yes","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"3","ddStatus":"Prem DD Clear","totalLeads":"3","totalQualified":"0","salesHub":"SH-00528","priceDrops":"3","history":[{"objective":"Price Reduction","channel":"Cold Texting","runDate":"4/13/2026","members":"646","counties":"Halifax VA\nPerson NC\nMecklenburg VA\nCaswell NC\nPittsylvania VA\nGranville County NC"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/23/2026","members":"229","counties":"Halifax VA\nPerson NC\nMecklenburg VA\nCaswell NC\nPittsylvania VA"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/24/2026","members":"130","counties":"Charlotte County\nCampbell County\nLunenburg County\nGranville County NC - not included on the list"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/15/2026","members":"694","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/14/2026","members":"112","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/31/2026","members":"510","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/27/2026","members":"49","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1428","address":"County Road 323,Orange Grove,TX,78372","state":"Texas","county":"Jim Wells","profit":16063,"dom":21,"expDays":63,"pod":"Gabriel","acreage":"2.16","neighborOk":false,"lastCampaign":"2026-04-14","price":"27900.00","mls":"LC - 9486","listedMLS":"Yes","listedFB":"Yes","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"0","ddStatus":"Prem DD Clear","totalLeads":"26","totalQualified":"1","salesHub":"SH-00530","priceDrops":"1","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/2/2026","members":"387","counties":"Kleberg\nBrooks\nKenedy\nNueces\nSan Patricio"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/25/2026","members":"169","counties":"Jim Wells County \nDuval\nLive Oak\n\nTR-SC-065948"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/10/2026","members":"317","counties":"Brooks; Nueces; San Patricio-NEW\n\nJim Wells County; Duval; Kleberg; Live Oak-DONE"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/14/2026","members":"503","counties":""},{"objective":"Neighbor Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"135","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/30/2026","members":"137","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/26/2026","members":"84","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1429","address":"S Grueser Rd,Racine,OH,45771","state":"Ohio","county":"Meigs","profit":17250,"dom":20,"expDays":61,"pod":"Jose","acreage":"2.00","neighborOk":true,"lastCampaign":"2026-04-15","price":"25000.00","mls":"LC - 9491","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"10","totalQualified":"0","salesHub":"SH-00531","priceDrops":"0","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/31/2026","members":"176","counties":"Wood WV, Mason WV, Morgan OH, Perry, OH"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/15/2026","members":"136","counties":"Wood (WV), Kanawha (WV)"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/13/2026","members":"118","counties":"Meigs OH 45771, 45769,45775,4574; \nGallia OH 45631,45620,45614,45640 ; \nJackson OH:45640,45656\nMason WV 25260, 25265,25545; \nJackson WV 25271\n\napify\nAthens OH 45701,45780,45761; -$0.830\nWashington OH 45750, 45786,45723; -$0.730"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/25/2026","members":"119","counties":"Meigs, Gallia Athens, (All zipcodes in this area has been scraped)\n\n\nTR-SC-065896"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/26/2026","members":"256","counties":"Jackson OH 45640; Vinton OH 45686; Mason WV 25260"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/14/2026","members":"429","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/10/2026","members":"272","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/11/2026","members":"22","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/2/2026","members":"31","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"3/26/2026","members":"27","counties":""},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/26/2026","members":"160","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1430","address":"Nixon Run Rd,Martins Ferry,OH,43935","state":"Ohio","county":"Belmont","profit":5700,"dom":20,"expDays":60,"pod":"Gabriel","acreage":"1.11","neighborOk":false,"lastCampaign":"2026-03-31","price":"10000.00","mls":"LC - 9496","listedMLS":"No","listedFB":"Yes","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"11","totalQualified":"0","salesHub":"SH-00532","priceDrops":"0","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/30/2026","members":"127","counties":"Guernsey County, OH\nNoble County, OH\nOhio County, WV\nMarshall County, WV\nBrooke County, WV"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"3/26/2026","members":"185","counties":"Belmont County, OH\nJefferson County, OH\nHarrison County, OH\nMonroe County, OH\n\nTR-SC-065942"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"3/31/2026","members":"320","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1431","address":"Whippoorwill,Effingham,SC,29541","state":"South Carolina","county":"Florence","profit":18375,"dom":14,"expDays":162,"pod":"Gabriel","acreage":"3.08","neighborOk":true,"lastCampaign":"2026-04-15","price":"37500.00","mls":"LC - 9518","listedMLS":"No","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"7","totalQualified":"0","salesHub":"SH-00533","priceDrops":"1","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"168","counties":"Marlboro - land insight\nDillon - landinsight\nHorry - land insight\n\nAlready scraped in LI\nSumter -\nLee -"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/2/2026","members":"398","counties":"Florence County - $2.86\nDarlington - $2.57\nMarion - $1.73\nWilliamsburg - $3.50\nClarendon - $1.48"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/15/2026","members":"59","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/7/2026","members":"705","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/7/2026","members":"34","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1432","address":"2231 Mckeen Ln,Effingham,SC,29541","state":"South Carolina","county":"Florence","profit":10713,"dom":10,"expDays":69,"pod":"Gabriel","acreage":"3.08","neighborOk":true,"lastCampaign":null,"price":"22900.00","mls":"LC - 9521","listedMLS":"No","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"2","totalQualified":"0","salesHub":"SH-00534","priceDrops":"1","history":[],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1433","address":"Route 152,Joppa,MD,21085","state":"Maryland","county":"Harford","profit":110003,"dom":14,"expDays":68,"pod":"Gabriel","acreage":"3.80","neighborOk":false,"lastCampaign":"2026-04-15","price":"229900.00","mls":"LC - 9511","listedMLS":"Yes","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"21","totalQualified":"0","salesHub":"SH-00535","priceDrops":"1","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/10/2026","members":"375","counties":"Baltimore County, MD - sent text Apr 6, 2026\n\nHarford County, Maryland - 10.66\nCecil County, MD - already scraped\nKent County, MD - land insight\nHoward County, MD - land insight"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/6/2026","members":"675","counties":"Baltimore County, MD - scraped 936 leads\n\n\nHarford County, Maryland\nCecil County, MD\nKent County, MD\nHoward County, MD"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/6/2026","members":"687","counties":"Baltimore County, MD\nHarford County\nCecil County, MD\nKent County, MD"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/15/2026","members":"644","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/10/2026","members":"42","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/9/2026","members":"664","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/1/2026","members":"16","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1434","address":"Ch #78,Belmont,OH,43718","state":"Ohio","county":"Belmont","profit":62430,"dom":14,"expDays":73,"pod":"Jose","acreage":"50.88","neighborOk":false,"lastCampaign":"2026-04-14","price":"219000.00","mls":"LC - 9515","listedMLS":"No","listedFB":"No","listingStatus":"UC w/o EMD","propertyType":"Outside City - Large Unrestricted (10>)","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"24","totalQualified":"0","salesHub":"SH-00536","priceDrops":"0","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/10/2026","members":"381","counties":"York ME ; Cumberland ME ; Androscoggin ME ; Oxford ME ; Sagadahoc ME ; Carroll NH ; - old leads\n\nStrafford NH 03820; Rockingham NH 03801;  Belknap NH 03246; Merrimack NH 03301; Essex MA 0195, Middlesex MA 01852- adde"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/10/2026","members":"488","counties":"Muskingum OH 43701; Tuscarawas OH 44663; Carroll OH 44615; Columbiana OH 43920; Coshocton OH 43812; Morgan OH 43756; Washington OH 45750; Athens O"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/1/2026","members":"286","counties":"Marshall County, WV 26041; Ohio County, WV 26003\nColumbiana OH 43920;"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/14/2026","members":"410","counties":"Licking County ? 43055\nDelaware County ? 43015\nFairfield County ? 43130\n\nNot yet uploaded\nUnion County ? 43040\nWarren County ? 45036\nClermont County ? 45103"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/9/2026","members":"176","counties":"Hocking County ? 43138\nGuernsey County ? 43725\nPerry County ? 43764\n\nAlready in SF\nVinton County ? 45686 - SF\nAthens County ? 45701\nMuskingum County ? 43701\nWashington County ? 45750"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/10/2026","members":"39","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/6/2026","members":"14","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1435","address":"Sanborn Rd,Acton,ME,4001","state":"Maine","county":"York","profit":46900,"dom":10,"expDays":70,"pod":"Jose","acreage":"34.55","neighborOk":false,"lastCampaign":"2026-04-14","price":"170000.00","mls":"LC - 9524","listedMLS":"No","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Large Unrestricted (10>)","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"21","totalQualified":"0","salesHub":"SH-00537","priceDrops":"1","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/3/2026","members":"739","counties":"York County, ME"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"555","counties":"Strafford NH 03820; Rockingham NH 03801; Merrimack NH 03301\n555 fresh leads"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/9/2026","members":"274","counties":"Middlesex - land insight"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/14/2026","members":"414","counties":"Kennebec-$3.480\nWaldo-$2.890"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/8/2026","members":"23","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/9/2026","members":"21","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1436","address":"S On Hwy 496,Newberry,SC,29108","state":"South Carolina","county":"Newberry","profit":4863,"dom":10,"expDays":69,"pod":"Jose","acreage":"1.21","neighborOk":true,"lastCampaign":"2026-04-15","price":"17900.00","mls":"LC - 9529","listedMLS":"No","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"25","totalQualified":"0","salesHub":"SH-00538","priceDrops":"1","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/13/2026","members":"306","counties":"Richland - 9.82\nLexington,\nGreenwood,29646:"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/15/2026","members":"428","counties":"Richland, Lexington, Newberry, Greenwood, Laurens, Saluda, Aiken, Spartanburg, Greenville, Fairfield, Orangeburg, Union"},{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/1/2026","members":"366","counties":"Newberry County, SC 29108; -$5.030\nFairfield County, SC 29059-$1.350"},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/6/2026","members":"20","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1437","address":"Walker Rd,Utica,NY,13502","state":"New York","county":"Oneida","profit":18703,"dom":7,"expDays":80,"pod":"Gabriel","acreage":"11.63","neighborOk":false,"lastCampaign":"2026-04-14","price":"39900.00","mls":"LC - 9539","listedMLS":"Yes","listedFB":"No","listingStatus":"Live","propertyType":"Outside City - Highway Lot","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"6","totalQualified":"1","salesHub":"SH-00539","priceDrops":"0","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/11/2026","members":"0","counties":"Lewis, Montgomery- Land Insights\nHerkimer- $1.050\nMadison-$2.820"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/13/2026","members":"751","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/14/2026","members":"566","counties":""},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/11/2026","members":"566","counties":""},{"objective":"InvestorBase Reach Out","channel":"Cold Texting","runDate":"4/11/2026","members":"13","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1438","address":"2131 Oakville Waltz Rd,New Boston,MI,48164","state":"Michigan","county":"Monroe County","profit":13303,"dom":7,"expDays":75,"pod":"Jose","acreage":"0.60","neighborOk":true,"lastCampaign":"2026-04-11","price":"19900.00","mls":"LC - 9536","listedMLS":"Yes","listedFB":"No","listingStatus":"Live","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"2","totalQualified":"0","salesHub":"SH-00540","priceDrops":"0","history":[{"objective":"Realtors Reach Out","channel":"Cold Texting","runDate":"4/11/2026","members":"688","counties":"Wayne:48180,48174,48192,48195,48183"},{"objective":"Buyer Base Reach Out","channel":"Cold Texting","runDate":"4/10/2026","members":"111","counties":""}],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1439","address":"Granger Ln,Orange,TX,77630","state":"Texas","county":"Orange","profit":28853,"dom":0,"expDays":80,"pod":"Gabriel","acreage":"1.39","neighborOk":true,"lastCampaign":null,"price":"34900.00","mls":"","listedMLS":"No","listedFB":"No","listingStatus":"Ready to List","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"0","totalQualified":"0","salesHub":"SH-00541","priceDrops":"0","history":[],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1440","address":"1601 Dania Dr,Fort Washington,MD,20744","state":"Maryland","county":"Prince George's","profit":154545,"dom":0,"expDays":84,"pod":"Jose","acreage":"7.45","neighborOk":false,"lastCampaign":null,"price":"198500.00","mls":"","listedMLS":"No","listedFB":"No","listingStatus":"Ready to List","propertyType":"Inside City - Outside SubD","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"0","totalQualified":"0","salesHub":"SH-00542","priceDrops":"0","history":[],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1442","address":"Tsalagi Trl,,Nc,28751","state":"North Carolina","county":"Haywood","profit":16703,"dom":0,"expDays":88,"pod":"Jose","acreage":"2.85","neighborOk":true,"lastCampaign":null,"price":"39900.00","mls":"","listedMLS":"No","listedFB":"No","listingStatus":"Ready to List","propertyType":"Outside City - Inside SubD / HOA","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"0","totalQualified":"0","salesHub":"SH-00543","priceDrops":"0","history":[],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1443","address":"1569 Amish Rd,Grantsville,MD,21536","state":"Maryland","county":"Garrett","profit":18303,"dom":0,"expDays":100,"pod":"Gabriel","acreage":"4.80","neighborOk":false,"lastCampaign":null,"price":"119900.00","mls":"","listedMLS":"No","listedFB":"No","listingStatus":"Ready to List","propertyType":"Outside City - Outside SubD Unrestricted (1> <10)","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"0","totalQualified":"0","salesHub":"SH-00544","priceDrops":"0","history":[],"isOwned":false,"transactionStage":"Clear to Flip"},{"id":"L - 1446","address":"Bethlehem Rd,Oakland,MD,21550","state":"Maryland","county":"Garrett","profit":74403,"dom":0,"expDays":56,"pod":"Gabriel","acreage":"50.00","neighborOk":false,"lastCampaign":null,"price":"249900.00","mls":"","listedMLS":"No","listedFB":"No","listingStatus":"Ready to List","propertyType":"Outside City - Large Unrestricted (10>)","zillowSaves":"","ddStatus":"Prem DD Clear","totalLeads":"0","totalQualified":"0","salesHub":"SH-00545","priceDrops":"0","history":[],"isOwned":false,"transactionStage":"Clear to Flip"}];
 
-const state={schedule:{},currentMonth:new Date(2026,3,1),activeTab:'all',notes:{},podFilter:null,campInstructions:{},newPropertyIds:[{id:'L - 1437',detected:'2026-04-14'},{id:'L - 1438',detected:'2026-04-14'},{id:'L - 1432',detected:'2026-04-14'}]};
+const state={schedule:{},currentMonth:new Date(2026,3,1),activeTab:'all',notes:{},podFilter:null,campInstructions:{},newPropertyIds:[],notDoneFilters:[],searchQuery:''};
 const TODAY=new Date(); // Monday April 13, 2026
 
 
 // Mock: campaigns that were scheduled last week (April 6-10)
 // These show as completed (greyed past days)
-let LAST_WEEK_SCHEDULE={"2026-04-14":[{"pid":"L - 1426","obj":"Buyer Base Reach Out"},{"pid":"L - 1436","obj":"Buyer Base Reach Out"},{"pid":"L - 1436","obj":"Realtors Reach Out"},{"pid":"L - 1433","obj":"Realtors Reach Out"},{"pid":"L - 1433","obj":"InvestorBase Reach Out"},{"pid":"L - 1435","obj":"Realtors Reach Out"},{"pid":"L - 1410","obj":"Buyer Base Reach Out"},{"pid":"L - 1425","obj":"Buyer Base Reach Out"},{"pid":"L - 1426","obj":"InvestorBase Reach Out"},{"pid":"L - 1428","obj":"Buyer Base Reach Out"},{"pid":"L - 1423","obj":"InvestorBase Reach Out"},{"pid":"L - 1424","obj":"Realtors Reach Out"},{"pid":"L - 1434","obj":"Realtors Reach Out"},{"pid":"L - 1382","obj":"Buyer Base Reach Out"},{"pid":"L - 1429","obj":"Buyer Base Reach Out"},{"pid":"L - 1420","obj":"Buyer Base Reach Out"},{"pid":"L - 1435","obj":"Realtors Reach Out"},{"pid":"L - 1437","obj":"InvestorBase Reach Out"}],"2026-03-31":[{"pid":"L - 1426","obj":"Buyer Base Reach Out"},{"pid":"L - 1314","obj":"Buyer Base Reach Out"},{"pid":"L - 1430","obj":"Buyer Base Reach Out"},{"pid":"L - 1382","obj":"Realtors Reach Out"},{"pid":"L - 1422","obj":"Price Reduction"},{"pid":"L - 1429","obj":"Realtors Reach Out"}],"2026-04-13":[{"pid":"L - 1426","obj":"Price Reduction"},{"pid":"L - 1424","obj":"Buyer Base Reach Out"},{"pid":"L - 1436","obj":"Realtors Reach Out"},{"pid":"L - 1437","obj":"Buyer Base Reach Out"}],"2026-03-30":[{"pid":"L - 1428","obj":"Buyer Base Reach Out"},{"pid":"L - 1424","obj":"Realtors Reach Out"},{"pid":"L - 1430","obj":"Realtors Reach Out"},{"pid":"L - 1386","obj":"Realtors Reach Out"},{"pid":"L - 1386","obj":"Neighbor Reach Out"},{"pid":"L - 1410","obj":"Price Reduction"},{"pid":"L - 1425","obj":"Realtors Reach Out"}],"2026-04-02":[{"pid":"L - 1428","obj":"Realtors Reach Out"},{"pid":"L - 1424","obj":"Realtors Reach Out"},{"pid":"L - 1431","obj":"Realtors Reach Out"},{"pid":"L - 1429","obj":"InvestorBase Reach Out"}],"2026-04-08":[{"pid":"L - 1428","obj":"Neighbor Reach Out"},{"pid":"L - 1408","obj":"Neighbor Reach Out"},{"pid":"L - 1431","obj":"Realtors Reach Out"},{"pid":"L - 1414","obj":"Realtors Reach Out"},{"pid":"L - 1414","obj":"InvestorBase Reach Out"},{"pid":"L - 1414","obj":"Buyer Base Reach Out"},{"pid":"L - 1420","obj":"Neighbor Reach Out"},{"pid":"L - 1435","obj":"InvestorBase Reach Out"},{"pid":"L - 1435","obj":"Realtors Reach Out"},{"pid":"L - 1410","obj":"Realtors Reach Out"}],"2026-04-10":[{"pid":"L - 1428","obj":"Realtors Reach Out"},{"pid":"L - 1423","obj":"Buyer Base Reach Out"},{"pid":"L - 1438","obj":"Buyer Base Reach Out"},{"pid":"L - 1434","obj":"Realtors Reach Out"},{"pid":"L - 1434","obj":"InvestorBase Reach Out"},{"pid":"L - 1418","obj":"Price Reduction"},{"pid":"L - 1418","obj":"Price Reduction"},{"pid":"L - 1429","obj":"Buyer Base Reach Out"},{"pid":"L - 1433","obj":"Realtors Reach Out"},{"pid":"L - 1433","obj":"InvestorBase Reach Out"},{"pid":"L - 1425","obj":"Buyer Base Reach Out"}],"2026-04-01":[{"pid":"L - 1423","obj":"InvestorBase Reach Out"},{"pid":"L - 1434","obj":"Realtors Reach Out"},{"pid":"L - 1436","obj":"Realtors Reach Out"},{"pid":"L - 1386","obj":"Buyer Base Reach Out"},{"pid":"L - 1433","obj":"InvestorBase Reach Out"},{"pid":"L - 0824","obj":"Buyer Base Reach Out"}],"2026-04-09":[{"pid":"L - 1423","obj":"Realtors Reach Out"},{"pid":"L - 1409","obj":"Realtors Reach Out"},{"pid":"L - 1434","obj":"Realtors Reach Out"},{"pid":"L - 1433","obj":"Buyer Base Reach Out"},{"pid":"L - 1435","obj":"InvestorBase Reach Out"},{"pid":"L - 1435","obj":"Realtors Reach Out"},{"pid":"L - 1425","obj":"Realtors Reach Out"},{"pid":"L - 1425","obj":"InvestorBase Reach Out"}],"2026-04-07":[{"pid":"L - 1408","obj":"Realtors Reach Out"},{"pid":"L - 1408","obj":"Buyer Base Reach Out"},{"pid":"L - 1408","obj":"InvestorBase Reach Out"},{"pid":"L - 1418","obj":"Realtors Reach Out"},{"pid":"L - 1431","obj":"InvestorBase Reach Out"},{"pid":"L - 1431","obj":"Buyer Base Reach Out"}],"2026-04-11":[{"pid":"L - 1438","obj":"Realtors Reach Out"},{"pid":"L - 1418","obj":"Price Reduction"},{"pid":"L - 1437","obj":"Buyer Base Reach Out"},{"pid":"L - 1437","obj":"InvestorBase Reach Out"},{"pid":"L - 1437","obj":"Realtors Reach Out"}],"2026-04-06":[{"pid":"L - 1434","obj":"InvestorBase Reach Out"},{"pid":"L - 1436","obj":"InvestorBase Reach Out"},{"pid":"L - 1386","obj":"InvestorBase Reach Out"},{"pid":"L - 1433","obj":"Realtors Reach Out"},{"pid":"L - 1433","obj":"Realtors Reach Out"}],"2026-04-03":[{"pid":"L - 1435","obj":"Realtors Reach Out"},{"pid":"L - 1410","obj":"Price Reduction"}]};
+let LAST_WEEK_SCHEDULE={"2026-04-16":[{"pid":"L - 1435","obj":"Realtors Reach Out"},{"pid":"L - 0878","obj":"Realtors Reach Out"},{"pid":"L - 1442","obj":"Realtors Reach Out"},{"pid":"L - 0878","obj":"InvestorBase Reach Out"},{"pid":"L - 0878","obj":"Buyer Base Reach Out"},{"pid":"L - 1426","obj":"Price Reduction"},{"pid":"L - 1428","obj":"Price Reduction"},{"pid":"L - 1431","obj":"Price Reduction"},{"pid":"L - 1442","obj":"InvestorBase Reach Out"},{"pid":"L - 1442","obj":"Buyer Base Reach Out"},{"pid":"L - 1414","obj":"Realtors Reach Out"},{"pid":"L - 1433","obj":"Price Reduction"},{"pid":"L - 1386","obj":"Realtors Reach Out"},{"pid":"L - 1414","obj":"Realtors Reach Out"},{"pid":"L - 1386","obj":"Buyer Base Reach Out"},{"pid":"L - 1414","obj":"Buyer Base Reach Out"},{"pid":"L - 1433","obj":"InvestorBase Reach Out"},{"pid":"L - 1433","obj":"InvestorBase Reach Out"}],"2026-04-17":[{"pid":"L - 1435","obj":"Realtors Reach Out"},{"pid":"L - 1386","obj":"Neighbor Reach Out"},{"pid":"L - 1435","obj":"InvestorBase Reach Out"}],"2026-04-18":[{"pid":"L - 1436","obj":"InvestorBase Reach Out"}],"2026-04-10":[{"pid":"L - 1434","obj":"Realtors Reach Out"},{"pid":"L - 1418","obj":"Price Reduction"},{"pid":"L - 1434","obj":"Realtors Reach Out"},{"pid":"L - 1428","obj":"Realtors Reach Out"},{"pid":"L - 1433","obj":"Realtors Reach Out"},{"pid":"L - 1418","obj":"Price Reduction"},{"pid":"L - 1423","obj":"Buyer Base Reach Out"},{"pid":"L - 1425","obj":"Buyer Base Reach Out"},{"pid":"L - 1429","obj":"Buyer Base Reach Out"},{"pid":"L - 1433","obj":"InvestorBase Reach Out"},{"pid":"L - 1434","obj":"InvestorBase Reach Out"},{"pid":"L - 1438","obj":"Buyer Base Reach Out"}],"2026-04-03":[{"pid":"L - 1435","obj":"Realtors Reach Out"},{"pid":"L - 1410","obj":"Price Reduction"}],"2026-04-15":[{"pid":"L - 1429","obj":"Realtors Reach Out"},{"pid":"L - 1436","obj":"Realtors Reach Out"},{"pid":"L - 1424","obj":"Realtors Reach Out"},{"pid":"L - 1410","obj":"Buyer Base Reach Out"},{"pid":"L - 1414","obj":"Buyer Base Reach Out"},{"pid":"L - 1426","obj":"Buyer Base Reach Out"},{"pid":"L - 1431","obj":"InvestorBase Reach Out"},{"pid":"L - 1433","obj":"Buyer Base Reach Out"}],"2026-04-09":[{"pid":"L - 1420","obj":"Price Reduction"},{"pid":"L - 1435","obj":"Realtors Reach Out"},{"pid":"L - 1434","obj":"Realtors Reach Out"},{"pid":"L - 1423","obj":"Realtors Reach Out"},{"pid":"L - 1425","obj":"Realtors Reach Out"},{"pid":"L - 1409","obj":"Realtors Reach Out"},{"pid":"L - 1425","obj":"InvestorBase Reach Out"},{"pid":"L - 1433","obj":"Buyer Base Reach Out"},{"pid":"L - 1435","obj":"InvestorBase Reach Out"}],"2026-04-14":[{"pid":"L - 1420","obj":"Buyer Base Reach Out"},{"pid":"L - 1434","obj":"Realtors Reach Out"},{"pid":"L - 1435","obj":"Realtors Reach Out"},{"pid":"L - 1424","obj":"Realtors Reach Out"},{"pid":"L - 1382","obj":"Buyer Base Reach Out"},{"pid":"L - 1423","obj":"InvestorBase Reach Out"},{"pid":"L - 1426","obj":"InvestorBase Reach Out"},{"pid":"L - 1428","obj":"Buyer Base Reach Out"},{"pid":"L - 1429","obj":"Buyer Base Reach Out"},{"pid":"L - 1437","obj":"Buyer Base Reach Out"}],"2026-04-13":[{"pid":"L - 1420","obj":"Price Reduction"},{"pid":"L - 1436","obj":"Realtors Reach Out"},{"pid":"L - 1429","obj":"Realtors Reach Out"},{"pid":"L - 1426","obj":"Price Reduction"},{"pid":"L - 1424","obj":"Buyer Base Reach Out"},{"pid":"L - 1437","obj":"Buyer Base Reach Out"}],"2026-04-11":[{"pid":"L - 1438","obj":"Realtors Reach Out"},{"pid":"L - 1418","obj":"Price Reduction"},{"pid":"L - 1437","obj":"Realtors Reach Out"},{"pid":"L - 1424","obj":"InvestorBase Reach Out"},{"pid":"L - 1429","obj":"InvestorBase Reach Out"},{"pid":"L - 1437","obj":"Buyer Base Reach Out"},{"pid":"L - 1437","obj":"InvestorBase Reach Out"}],"2026-04-02":[{"pid":"L - 1424","obj":"Realtors Reach Out"},{"pid":"L - 1428","obj":"Realtors Reach Out"},{"pid":"L - 1431","obj":"Realtors Reach Out"},{"pid":"L - 1429","obj":"InvestorBase Reach Out"}],"2026-04-08":[{"pid":"L - 1435","obj":"Realtors Reach Out"},{"pid":"L - 1431","obj":"Realtors Reach Out"},{"pid":"L - 1410","obj":"Realtors Reach Out"},{"pid":"L - 1414","obj":"Realtors Reach Out"},{"pid":"L - 1408","obj":"Neighbor Reach Out"},{"pid":"L - 1414","obj":"InvestorBase Reach Out"},{"pid":"L - 1414","obj":"Buyer Base Reach Out"},{"pid":"L - 1420","obj":"Neighbor Reach Out"},{"pid":"L - 1428","obj":"Neighbor Reach Out"},{"pid":"L - 1435","obj":"InvestorBase Reach Out"}],"2026-04-07":[{"pid":"L - 1408","obj":"Realtors Reach Out"},{"pid":"L - 1418","obj":"Realtors Reach Out"},{"pid":"L - 1408","obj":"Buyer Base Reach Out"},{"pid":"L - 1408","obj":"InvestorBase Reach Out"},{"pid":"L - 1431","obj":"Buyer Base Reach Out"},{"pid":"L - 1431","obj":"InvestorBase Reach Out"}],"2026-04-01":[{"pid":"L - 1436","obj":"Realtors Reach Out"},{"pid":"L - 1434","obj":"Realtors Reach Out"},{"pid":"L - 0824","obj":"Buyer Base Reach Out"},{"pid":"L - 1386","obj":"Buyer Base Reach Out"},{"pid":"L - 1423","obj":"InvestorBase Reach Out"},{"pid":"L - 1433","obj":"InvestorBase Reach Out"}],"2026-04-06":[{"pid":"L - 1433","obj":"Realtors Reach Out"},{"pid":"L - 1433","obj":"Realtors Reach Out"},{"pid":"L - 1386","obj":"InvestorBase Reach Out"},{"pid":"L - 1434","obj":"InvestorBase Reach Out"},{"pid":"L - 1436","obj":"InvestorBase Reach Out"}]};
 
 // Mock missed campaigns from last week (scheduled but not completed)
 let MISSED=[];
@@ -241,7 +324,7 @@ function dateStr(d){return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(
 function isSameDay(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate()}
 function fmt$(n){return n<0?'-$'+Math.abs(n).toLocaleString():'$'+n.toLocaleString()}
 function shortAddr(a){if(!a)return'—';const p=a.split(',');let s=p[0].trim();const city=p.length>1?p[1].trim():'';const st=p.length>2?p[2].trim():'';if(!s&&city)s=city;if(s.length>24)s=s.substring(0,22)+'…';return city&&s!==city?s+', '+city:st?s+', '+st:s}
-function daysSince(ds){if(!ds)return 999;return Math.round((TODAY-new Date(ds))/86400000)}
+function daysSince(ds){if(!ds)return 999;const[y,m,d]=ds.split('-').map(Number);return Math.round((TODAY-new Date(y,m-1,d))/86400000)}
 
 function renderCard(prop,hl){
   const pod=prop.pod==='Jose'?'badge-jose':'badge-gab',podL=prop.pod==='Gabriel'?'Gab':prop.pod;
@@ -251,7 +334,10 @@ function renderCard(prop,hl){
   if(hl==='profit')hlBox=`<span class="hl-value hl-profit">${fmt$(prop.profit)}</span>`;
   if(hl==='expire')hlBox=`<span class="hl-value hl-expire">${prop.expDays<0?'EXPIRED':prop.expDays+'d to expiration'}</span>`;
   if(hl==='lastcamp')hlBox=`<span class="hl-value hl-lastcamp">Last campaign: ${last}</span>`;
-  const chips=STANDARD_CAMPAIGNS.map(obj=>{
+  const chips=STANDARD_CAMPAIGNS.filter(obj=>{
+    if(obj==='Neighbor Reach Out'&&!prop.neighborOk)return false;
+    return true;
+  }).map(obj=>{
     const cls=CLS[obj]||'realtor',s=SHORT[obj]||obj;
     return`<span class="campaign-chip ${cls}" draggable="true" data-pid="${prop.id}" data-obj="${obj}" onmousedown="event.stopPropagation()" onclick="event.stopPropagation()" ondragstart="chipDS(event)" ondragend="chipDE(event)">${s}</span>`;
   }).join('');
@@ -309,6 +395,8 @@ function scoreAIRecommendations(){
     
     // Generate a recommendation for each campaign type
     STANDARD_CAMPAIGNS.forEach(obj=>{
+      // Skip neighbor campaigns for non-eligible properties
+      if(obj==='Neighbor Reach Out'&&!prop.neighborOk)return;
       let score=base+(typeMod[obj]||0);
       let reason=reasons.slice(0,2).join(' · ');
       
@@ -358,30 +446,65 @@ function renderAICard(rec,rank){
   </div>`;
 }
 
-function renderSB(tab){
-  const el=document.getElementById('sb-'+tab);
+function applyNotDoneFilter(propList){
+  if(state.notDoneFilters.length===0)return propList;
+  const filterMap={
+    'realtor':'Realtors Reach Out',
+    'buyer':'Buyer Base Reach Out',
+    'investor':'InvestorBase Reach Out',
+    'pricedrop':'Price Reduction',
+    'neighbor':'Neighbor Reach Out'
+  };
+  return propList.filter(prop=>{
+    const doneTypes=new Set();
+    if(prop.history)prop.history.forEach(h=>{if(h.objective)doneTypes.add(h.objective);});
+    for(const f of state.notDoneFilters){
+      const objName=filterMap[f];
+      if(f==='neighbor'&&!prop.neighborOk)continue;
+      if(!doneTypes.has(objName))return true;
+    }
+    return false;
+  });
+}
+
+function renderSidebar(){
+  const tab=state.activeTab;
+  const el=document.getElementById('sb-content');
   const FP=getFilteredProps();
+  const FPA=tab==='owned'?FP:FP.filter(p=>!p.isOwned);
   if(tab==='ai'){
     const recs=scoreAIRecommendations();
     const filtered=state.podFilter?recs.filter(r=>(r.prop.pod||'').trim()===state.podFilter):recs;
-    const top=filtered.slice(0,30);
+    // Apply notDone filter to AI recs
+    let top=filtered;
+    if(state.notDoneFilters.length>0){
+      const validPids=new Set(applyNotDoneFilter(FPA).map(p=>p.id));
+      top=top.filter(r=>validPids.has(r.pid));
+    }
+    if(state.searchQuery){
+      const searchPids=new Set(applySearch(FPA).map(p=>p.id));
+      top=top.filter(r=>searchPids.has(r.pid));
+    }
+    top=top.slice(0,30);
     el.innerHTML='<div style="padding:8px 8px 4px;font-size:10px;color:var(--text3);font-style:italic">AI-ranked campaigns by priority score. Drag any chip to the calendar.</div>'+top.map((r,i)=>renderAICard(r,i+1)).join('');
     return;
   }
   if(tab==='new'){
     const now=new Date();
     const activeNew=state.newPropertyIds.filter(n=>{
-      const det=new Date(n.detected);
+      const [ny,nm,nd]=n.detected.split('-').map(Number);const det=new Date(ny,nm-1,nd);
       const daysDiff=Math.round((now-det)/(86400000));
       return daysDiff<=10;
     });
     state.newPropertyIds=activeNew;
     const newIds=new Set(activeNew.map(n=>n.id));
-    const newProps=FP.filter(p=>newIds.has(p.id));
+    let newProps=FPA.filter(p=>newIds.has(p.id));
+    newProps=applyNotDoneFilter(newProps);
+    newProps=applySearch(newProps);
     if(newProps.length===0){el.innerHTML='<div class="empty-day" style="padding:40px">No new properties detected.<br><br><span style="font-size:10px;color:var(--text3)">New properties appear here when a CSV refresh contains listings that weren\'t in the previous upload. They stay for 10 days.</span></div>';return;}
     el.innerHTML='<div style="padding:8px 8px 4px;font-size:10px;color:#059669;font-weight:600">\u{1F195} '+newProps.length+' new propert'+(newProps.length===1?'y':'ies')+' added recently</div>'+newProps.map(p=>{
       const entry=activeNew.find(n=>n.id===p.id);
-      const det=entry?new Date(entry.detected):now;
+      const det=entry?(()=>{const[ey,em,ed]=entry.detected.split('-').map(Number);return new Date(ey,em-1,ed)})():now;
       const daysAgo=Math.round((now-det)/86400000);
       const daysLeft=10-daysAgo;
       return'<div style="font-size:9px;color:var(--text3);padding:2px 10px;margin-bottom:-2px">Added '+daysAgo+'d ago \u2014 '+daysLeft+'d left in New</div>'+renderCard(p,null);
@@ -389,12 +512,45 @@ function renderSB(tab){
     return;
   }
   let list,hl=null;
-  if(tab==='all'){list=[...FP];}
-  else if(tab==='profit'){list=[...FP].sort((a,b)=>b.profit-a.profit);hl='profit';}
-  else if(tab==='dom'){list=[...FP].filter(p=>p.expDays!==0).sort((a,b)=>a.expDays-b.expDays);hl='expire';}
-  else if(tab==='lastcamp'){list=[...FP].sort((a,b)=>daysSince(b.lastCampaign)-daysSince(a.lastCampaign));hl='lastcamp';}
-  else if(tab==='owned'){list=FP.filter(p=>p.isOwned);}
-  el.innerHTML=list.length?list.map(p=>renderCard(p,hl)).join(''):'<div class="empty-day" style="padding:40px">No properties</div>';
+  if(tab==='all'){list=[...FPA];}
+  else if(tab==='profit'){list=[...FPA].sort((a,b)=>b.profit-a.profit);hl='profit';}
+  else if(tab==='dom'){list=[...FPA].filter(p=>p.expDays!==0).sort((a,b)=>a.expDays-b.expDays);hl='expire';}
+  else if(tab==='lastcamp'){list=[...FPA].sort((a,b)=>daysSince(b.lastCampaign)-daysSince(a.lastCampaign));hl='lastcamp';}
+  else if(tab==='owned'){list=FPA.filter(p=>p.isOwned);}
+  else{list=[...FPA];}
+  list=applyNotDoneFilter(list);
+  list=applySearch(list);
+  el.innerHTML=list.length?list.map(p=>renderCard(p,hl)).join(''):'<div class="empty-day" style="padding:40px">No properties match current filters</div>';
+}
+
+function handleViewChange(val){
+  state.activeTab=val;
+  renderSidebar();
+}
+function handleNotDoneChange(){
+  const checks=document.querySelectorAll('#notdone-filters input[type=checkbox]');
+  state.notDoneFilters=[];
+  checks.forEach(cb=>{if(cb.checked)state.notDoneFilters.push(cb.value);});
+  renderSidebar();
+}
+function handleSearch(val){
+  state.searchQuery=val.trim().toLowerCase();
+  document.getElementById('search-clear').classList.toggle('show',val.length>0);
+  renderSidebar();
+}
+function clearSearch(){
+  document.getElementById('prop-search').value='';
+  state.searchQuery='';
+  document.getElementById('search-clear').classList.remove('show');
+  renderSidebar();
+}
+function applySearch(list){
+  if(!state.searchQuery)return list;
+  const q=state.searchQuery;
+  return list.filter(p=>{
+    const hay=(p.address+' '+p.state+' '+p.county+' '+p.id+' '+(p.city||'')).toLowerCase();
+    return hay.includes(q);
+  });
 }
 
 function renderCal(){
@@ -459,7 +615,7 @@ function renderResched(){
     const addr=p?shortAddr(p.address):'';
     const podCls=p?(p.pod==='Jose'?'badge-jose':'badge-gab'):'';
     const podL=p?(p.pod==='Gabriel'?'Gab':p.pod):'';
-    const d=new Date(mi.date);
+    const [ry,rm,rd]=mi.date.split('-').map(Number);const d=new Date(ry,rm-1,rd);
     const dateLabel=mn[d.getMonth()]+' '+d.getDate();
     h+=`<div class="resched-card" draggable="true" data-resched-idx="${idx}" ondragstart="reschedDS(event)" ondragend="reschedDE(event)">
       <div class="resched-card-top">
@@ -482,10 +638,11 @@ function updateStats(){
     if(ds>=todayDs){tot+=items.length;items.forEach(i=>ap.add(i.pid));}
   }
   let pr=0;ap.forEach(pid=>{const p=PROPS.find(x=>x.id===pid);if(p)pr+=p.profit});
-  const activeProps=PROPS.filter(p=>!p.isOwned&&p.expDays>=0).length;
+  const activeProps=PROPS.filter(p=>!p.isOwned&&p.expDays>=0);
+  let totalChips=0;activeProps.forEach(p=>{totalChips+=p.neighborOk?STANDARD_CAMPAIGNS.length:STANDARD_CAMPAIGNS.length-1;});
   document.getElementById('stat-props').textContent=PROPS.length;
   document.getElementById('stat-sched').textContent=tot;
-  document.getElementById('stat-unplan').textContent=Math.max(0,activeProps*STANDARD_CAMPAIGNS.length-tot);
+  document.getElementById('stat-unplan').textContent=Math.max(0,totalChips-tot);
   document.getElementById('stat-profit').textContent='$'+pr.toLocaleString();
 }
 
@@ -538,9 +695,10 @@ function processCSVData(pipelineRows,historyRows){
     const status=(c['Campaign Status']||'').trim();
     const rd=(c['Campaign Run Date']||'').trim();
     const members=(c['Actual Campaign Members']||'').trim();
+    const counties=(c['Counties (if Multiple Counties)']||'').trim();
     if(!lid||!obj)return;
     if(!histByLid[lid])histByLid[lid]=[];
-    if(status==='Completed')histByLid[lid].push({objective:obj,channel:ch,runDate:rd,members});
+    if(status==='Completed')histByLid[lid].push({objective:obj,channel:ch,runDate:rd,members,counties});
   });
   const newSchedule={};
   const cutoff=new Date();cutoff.setDate(cutoff.getDate()-15);
@@ -571,6 +729,8 @@ function processCSVData(pipelineRows,historyRows){
     let exp=Math.round(parseFloat((p['# of Days to Expiration']||'0'))||0);
     if(isOwned)exp=0;
     let priceDrops=Math.round(parseFloat((p['# of Price Drops']||'0'))||0);
+    const sendNeighbor=(p['Send Neighbor Letters?']||'').trim();
+    const neighborOk=sendNeighbor==='Yes';
     const hist=histByLid[lid]||[];
     let lastCamp=null;
     hist.forEach(h=>{try{const pp=h.runDate.split('/');const d=new Date(parseInt(pp[2]),parseInt(pp[0])-1,parseInt(pp[1]));if(!lastCamp||d>lastCamp)lastCamp=d;}catch(e){}});
@@ -580,7 +740,7 @@ function processCSVData(pipelineRows,historyRows){
       state:(p['State']||'').trim(),county:(p['County']||'').trim(),
       profit,dom:Math.round(parseFloat((p['Website DOM']||'0'))||0),expDays:exp,
       pod:(p['POD']||'').trim(),acreage:(p['Total Property Size']||'').trim(),
-      neighborOk:(p['Neighbor Campaign']||'').trim()==='Yes',lastCampaign:lastCampStr,
+      neighborOk,lastCampaign:lastCampStr,
       price:(p['Current Cash Price']||'').trim(),mls:(p['MLS']||'').trim(),
       listedMLS:(p['Listed on MLS']||'').trim(),listedFB:(p['Listed on FB?']||'').trim(),
       listingStatus:(p['Listing Status']||'').trim(),propertyType:(p['Property Type']||'').trim(),
@@ -592,8 +752,6 @@ function processCSVData(pipelineRows,historyRows){
   });
   return{props:newProps,schedule:newSchedule};
 }
-
-
 
 async function handleRefreshUpload(files){
   if(files.length<2){alert('Please select both CSV files (hold Ctrl/Cmd to select multiple).');return;}
@@ -618,8 +776,7 @@ async function handleRefreshUpload(files){
     alert('\u{1F195} '+newIds.length+' new propert'+(newIds.length===1?'y':'ies')+' detected! Check the New tab.');
   }
   await saveToFirestore();
-  ['all','profit','dom','lastcamp','owned','ai','new'].forEach(t=>renderSB(t));
-  renderResched();renderCal();updateStats();
+  renderSidebar();renderResched();renderCal();updateStats();
 }
 
 // DRAG
@@ -633,7 +790,8 @@ function reschedDE(e){const el=e.target.closest('.resched-card');if(el)el.style.
 
 // Count business days between two date strings (absolute distance)
 function bizDaysBetween(ds1,ds2){
-  let d1=new Date(ds1),d2=new Date(ds2);
+  const [y1,m1,dy1]=ds1.split('-').map(Number);const [y2,m2,dy2]=ds2.split('-').map(Number);
+  let d1=new Date(y1,m1-1,dy1),d2=new Date(y2,m2-1,dy2);
   if(d1>d2){const tmp=d1;d1=d2;d2=tmp;}
   let count=0;const cur=new Date(d1);
   cur.setDate(cur.getDate()+1);
@@ -661,7 +819,7 @@ function findConflict(pid,obj,targetDate,excludeDate){
 }
 
 // Format date for display
-function fmtDate(ds){const d=new Date(ds);const mn=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return mn[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear();}
+function fmtDate(ds){const[y,m,d]=ds.split('-').map(Number);const dt=new Date(y,m-1,d);const mn=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return mn[dt.getMonth()]+' '+dt.getDate()+', '+dt.getFullYear();}
 
 // Show confirmation popup
 function showConfirm(msg,onYes,onNo){
@@ -696,14 +854,14 @@ function doDrop(targetDate){
       const prop=PROPS.find(p=>p.id===pid);
       const name=prop?shortAddr(prop.address):'this property';
       const campName=SHORT[obj]||obj;
-      const isPast=new Date(conflict)<TODAY;
+      const [cy,cm,cd]=conflict.split('-').map(Number);const isPast=new Date(cy,cm-1,cd)<TODAY;
       const verb=isPast?'already ran on':'is already scheduled on';
       showConfirm(
         `<strong>${campName}</strong> campaign for <strong>${name}</strong> ${verb} <strong>${fmtDate(conflict)}</strong>.<br><br>Do you want to schedule this anyway?`,
         ()=>{
           if(!state.schedule[targetDate])state.schedule[targetDate]=[];
           state.schedule[targetDate].push({pid,obj});
-          renderResched();renderCal();updateStats();
+          renderResched();renderCal();updateStats();saveToFirestore();
         }
       );
     }else{
@@ -723,7 +881,7 @@ function doDrop(targetDate){
       const prop=PROPS.find(p=>p.id===item.pid);
       const name=prop?shortAddr(prop.address):'this property';
       const campName=SHORT[item.obj]||item.obj;
-      const isPast2=new Date(conflict)<TODAY;
+      const [cy2,cm2,cd2]=conflict.split('-').map(Number);const isPast2=new Date(cy2,cm2-1,cd2)<TODAY;
       const verb2=isPast2?'already ran on':'is already scheduled on';
       showConfirm(
         `<strong>${campName}</strong> campaign for <strong>${name}</strong> ${verb2} <strong>${fmtDate(conflict)}</strong>.<br><br>Do you want to move this anyway?`,
@@ -744,10 +902,31 @@ function doDrop(targetDate){
   }else if(_drag.t==='resched'){
     const pid=_drag.pid,obj=_drag.obj,missedDate=_drag.date,idx=_drag.idx;
     _drag=null;
-    if(!state.schedule[targetDate])state.schedule[targetDate]=[];
-    state.schedule[targetDate].push({pid:pid,obj:obj,fromMissed:true,missedDate:missedDate});
-    if(idx>=0&&idx<MISSED.length)MISSED.splice(idx,1);
-    renderResched();renderCal();updateStats();saveToFirestore();
+    // Prevent duplicate: same property+type on same day
+    const dupeOnDay2=(state.schedule[targetDate]||[]).some(x=>x.pid===pid&&x.obj===obj);
+    if(dupeOnDay2)return;
+    const conflict3=findConflict(pid,obj,targetDate,null);
+    if(conflict3){
+      const prop=PROPS.find(p=>p.id===pid);
+      const name=prop?shortAddr(prop.address):'this property';
+      const campName=SHORT[obj]||obj;
+      const [cy3,cm3,cd3]=conflict3.split('-').map(Number);const isPast3=new Date(cy3,cm3-1,cd3)<TODAY;
+      const verb3=isPast3?'already ran on':'is already scheduled on';
+      showConfirm(
+        `<strong>${campName}</strong> campaign for <strong>${name}</strong> ${verb3} <strong>${fmtDate(conflict3)}</strong>.<br><br>Do you want to reschedule this anyway?`,
+        ()=>{
+          if(!state.schedule[targetDate])state.schedule[targetDate]=[];
+          state.schedule[targetDate].push({pid:pid,obj:obj,fromMissed:true,missedDate:missedDate});
+          if(idx>=0&&idx<MISSED.length)MISSED.splice(idx,1);
+          renderResched();renderCal();updateStats();saveToFirestore();
+        }
+      );
+    }else{
+      if(!state.schedule[targetDate])state.schedule[targetDate]=[];
+      state.schedule[targetDate].push({pid:pid,obj:obj,fromMissed:true,missedDate:missedDate});
+      if(idx>=0&&idx<MISSED.length)MISSED.splice(idx,1);
+      renderResched();renderCal();updateStats();saveToFirestore();
+    }
     
   }else{
     _drag=null;
@@ -774,11 +953,13 @@ function showModal(pid){
   else expTag=`<span class="modal-tag t-exp">Expires: ${prop.expDays}d</span>`;
   const podCls=prop.pod==='Jose'?'badge-jose':'badge-gab',podL=prop.pod==='Gabriel'?'Gab':prop.pod;
   let hist='';
-  if(prop.history?.length){const rows=prop.history.map(h=>`<tr><td>${h.runDate}</td><td>${SHORT[h.objective]||''}</td><td>${h.channel||''}</td><td>${h.members||''}</td></tr>`).join('');
-    hist=`<div class="history-scroll"><table class="modal-history-table"><thead><tr><th>Date</th><th>Outreach</th><th>Channel</th><th>Members</th></tr></thead><tbody>${rows}</tbody></table></div>`;}
+  if(prop.history?.length){const rows=prop.history.map(h=>{
+    const c=h.counties?'<span style="max-width:200px;display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="'+(h.counties||'').replace(/"/g,'&quot;')+'">'+(h.counties||'').substring(0,50)+(h.counties&&h.counties.length>50?'…':'')+'</span>':'—';
+    return`<tr><td>${h.runDate}</td><td>${SHORT[h.objective]||''}</td><td>${h.channel||''}</td><td>${h.members||''}</td><td>${c}</td></tr>`;}).join('');
+    hist=`<div class="history-scroll"><table class="modal-history-table"><thead><tr><th>Date</th><th>Outreach</th><th>Channel</th><th>Members</th><th>Counties/Cities</th></tr></thead><tbody>${rows}</tbody></table></div>`;}
   else hist='<div class="modal-history-empty">No campaigns run yet.</div>';
   document.getElementById('modal-content').innerHTML=`
-    <div class="modal-header"><div class="modal-header-top"><div><div class="modal-title">${prop.address}</div>
+    <div class="modal-header"><div class="modal-header-top"><div><div class="modal-title">${shortAddr(prop.address)}</div>
       <div class="modal-subtitle">${prop.id} · ${prop.salesHub||''} · ${prop.acreage} ac · ${prop.propertyType||''}</div></div>
       <button class="modal-close-x" onclick="document.getElementById('modal').classList.remove('show')">×</button></div>
       <div class="modal-tags"><span class="badge ${prop.pod==='Jose'?'badge-jose':'badge-gab'}" style="font-size:11px;padding:3px 10px">${podL}</span>${expTag}</div></div>
@@ -789,7 +970,7 @@ function showModal(pid){
         <div class="modal-field"><span class="fl">Profit</span><span class="fv ${prop.profit>=0?'positive':'negative'}">${fmt$(prop.profit)}</span></div>
         <div class="modal-field"><span class="fl">Acreage</span><span class="fv">${prop.acreage} ac</span></div>
         <div class="modal-field"><span class="fl">DOM</span><span class="fv">${prop.dom}</span></div>
-        <div class="modal-field"><span class="fl">Expiration</span><span class="fv">${prop.expDays===0?'TAH Owned':prop.expDays+'d'}</span></div>
+        <div class="modal-field"><span class="fl">Expiration</span><span class="fv">${prop.expDays===0?'TAH Owned':prop.expDays<0?'Contract Expired':prop.expDays+'d'}</span></div>
         <div class="modal-field"><span class="fl">POD</span><span class="fv">${prop.pod}</span></div>
         <div class="modal-field"><span class="fl">Leads</span><span class="fv">${prop.totalLeads||'0'} (${prop.totalQualified||'0'} qual)</span></div></div></div>
       <div class="modal-section"><div class="modal-section-title">Listing Status</div><div class="modal-grid">
@@ -810,20 +991,31 @@ function buildSchedRows(pid){
   for(const[ds,items]of Object.entries(state.schedule)){
     items.forEach((it,idx)=>{
       if(it.pid===pid){
-        const d=new Date(ds);
+        const [yr,mo,dy]=ds.split('-').map(Number);
+        const d=new Date(yr,mo-1,dy);
         const dateLabel=mn[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear();
         const dow=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()];
         const s=SHORT[it.obj]||it.obj;
         const cls=CLS[it.obj]||'realtor';
         const key=ds+'|'+pid+'|'+it.obj;
         const ci=state.campInstructions[key]||{};
-        rows.push({ds,dateLabel,dow,s,cls,key,ci,sortDate:d});
+        const isRealtor=it.obj==='Realtors Reach Out';
+        rows.push({ds,dateLabel,dow,s,cls,key,ci,sortDate:d,isRealtor,pid,obj:it.obj});
       }
     });
   }
   rows.sort((a,b)=>a.sortDate-b.sortDate);
   if(rows.length===0)return'<div class="no-sched">No campaigns scheduled yet. Drag campaigns from the sidebar to the calendar.</div>';
-  return rows.map(r=>`<div class="sched-row">
+  return rows.map(r=>{
+    const countiesField=r.isRealtor?`
+    <div class="sched-row-field" style="align-items:flex-start">
+      <span class="sched-row-label" style="margin-top:6px">Target Counties/Cities</span>
+      <div style="flex:1">
+        <textarea class="counties-input" id="counties-${r.key.replace(/[| ]/g,'_')}" placeholder="Enter counties or cities to target for this Realtor campaign..." oninput="saveCampField('${r.key}','counties',this.value)">${r.ci.counties||''}</textarea>
+        <div class="counties-error" id="err-${r.key.replace(/[| ]/g,'_')}"></div>
+      </div>
+    </div>`:'';
+    return`<div class="sched-row" data-key="${r.key}">
     <div class="sched-row-header">
       <span class="sched-row-date">${r.dow}, ${r.dateLabel}</span>
       <span class="campaign-chip ${r.cls}" style="pointer-events:none;cursor:default">${r.s}</span>
@@ -835,25 +1027,326 @@ function buildSchedRows(pid){
         <option value="Texting"${r.ci.tool==='Texting'?' selected':''}>Texting</option>
         <option value="Cold Calling"${r.ci.tool==='Cold Calling'?' selected':''}>Cold Calling</option>
       </select>
-    </div>
+    </div>${countiesField}
     <div class="sched-row-field" style="align-items:flex-start">
       <span class="sched-row-label" style="margin-top:6px">Instructions</span>
-      <textarea placeholder="Target counties, radius, list size, special notes..." oninput="saveCampField('${r.key}','instructions',this.value)">${r.ci.instructions||''}</textarea>
+      <textarea placeholder="Target radius, list size, special notes..." oninput="saveCampField('${r.key}','instructions',this.value)">${r.ci.instructions||''}</textarea>
     </div>
-  </div>`).join('');
+  </div>`;}).join('');
 }
 
 function saveCampField(key,field,value){
   if(!state.campInstructions[key])state.campInstructions[key]={};
   state.campInstructions[key][field]=value;
+  // Clear error when user edits counties
+  if(field==='counties'){
+    const safeId='err-'+key.replace(/[| ]/g,'_');
+    const errEl=document.getElementById(safeId);
+    if(errEl){errEl.classList.remove('show');errEl.innerHTML='';}
+    const inputEl=document.getElementById('counties-'+key.replace(/[| ]/g,'_'));
+    if(inputEl)inputEl.classList.remove('has-error');
+  }
 }
+
+// Extract clean county/city names from a text string
+function extractCountyNames(text){
+  if(!text)return[];
+  // Split on common delimiters
+  const chunks=text.split(/[,;\|\n\r]+/);
+  const names=[];
+  const stopWords=new Set(['county','counties','city','and','the','all','zip','codes','in','this','area','has','been','scraped','targeted','not','included','on','list','of','for','from','to','with']);
+  const stateAbbrs=new Set(['al','ak','az','ar','ca','co','ct','de','fl','ga','hi','id','il','in','ia','ks','ky','la','me','md','ma','mi','mn','ms','mo','mt','ne','nv','nh','nj','nm','ny','nc','nd','oh','ok','or','pa','ri','sc','sd','tn','tx','ut','vt','va','wa','wv','wi','wy']);
+  chunks.forEach(chunk=>{
+    // Remove zip codes, numbers, special chars
+    let clean=chunk.replace(/\d{5}/g,'').replace(/\d+/g,'').replace(/[:\-\?#()\/\\]/g,' ').trim();
+    // Remove state abbreviations at end
+    clean=clean.replace(/\s+(AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY)\s*$/i,'').trim();
+    // Remove "county" suffix
+    clean=clean.replace(/\s+county$/i,'').trim();
+    if(clean.length<2)return;
+    const lower=clean.toLowerCase();
+    if(stopWords.has(lower)||stateAbbrs.has(lower))return;
+    // Split on remaining spaces to get multi-word names or single words
+    // But keep multi-word names together (e.g. "St. Mary's", "Prince George's")
+    if(lower.length>=2)names.push(lower);
+  });
+  return[...new Set(names)];
+}
+
+function validateCounties(pid){
+  const prop=PROPS.find(p=>p.id===pid);
+  if(!prop||!prop.history)return true;
+  
+  // Build map of historical counties: countyName -> [dates]
+  const histCounties={};
+  prop.history.forEach(h=>{
+    if(!h.counties||h.objective!=='Realtors Reach Out')return;
+    const names=extractCountyNames(h.counties);
+    names.forEach(n=>{
+      if(!histCounties[n])histCounties[n]=[];
+      histCounties[n].push(h.runDate);
+    });
+  });
+  
+  // Also check counties from OTHER scheduled Realtor campaigns for this property (in campInstructions)
+  for(const[key,ci]of Object.entries(state.campInstructions)){
+    if(!ci.counties)continue;
+    const parts=key.split('|');
+    if(parts[1]!==pid||parts[2]!=='Realtors Reach Out')continue;
+    const names=extractCountyNames(ci.counties);
+    names.forEach(n=>{
+      if(!histCounties[n])histCounties[n]=[];
+      histCounties[n].push('Scheduled: '+parts[0]);
+    });
+  }
+  
+  let hasError=false;
+  // Check each scheduled Realtor campaign's target counties
+  for(const[key,ci]of Object.entries(state.campInstructions)){
+    const parts=key.split('|');
+    if(parts[1]!==pid||parts[2]!=='Realtors Reach Out'||!ci.counties)continue;
+    
+    const inputNames=extractCountyNames(ci.counties);
+    const safeId='err-'+key.replace(/[| ]/g,'_');
+    const inputId='counties-'+key.replace(/[| ]/g,'_');
+    const errEl=document.getElementById(safeId);
+    const inputEl=document.getElementById(inputId);
+    if(!errEl||!inputEl)continue;
+    
+    // Build history excluding THIS campaign's own entry
+    const otherHist={};
+    prop.history.forEach(h=>{
+      if(!h.counties||h.objective!=='Realtors Reach Out')return;
+      extractCountyNames(h.counties).forEach(n=>{
+        if(!otherHist[n])otherHist[n]=[];
+        otherHist[n].push(h.runDate);
+      });
+    });
+    // Also check other scheduled campaigns (not this one)
+    for(const[k2,ci2]of Object.entries(state.campInstructions)){
+      if(k2===key||!ci2.counties)continue;
+      const p2=k2.split('|');
+      if(p2[1]!==pid||p2[2]!=='Realtors Reach Out')continue;
+      extractCountyNames(ci2.counties).forEach(n=>{
+        if(!otherHist[n])otherHist[n]=[];
+        otherHist[n].push('Scheduled: '+p2[0]);
+      });
+    }
+    
+    const conflicts=[];
+    inputNames.forEach(name=>{
+      // Check against all historical county names (partial match)
+      for(const[histName,dates]of Object.entries(otherHist)){
+        if(histName===name||histName.includes(name)||name.includes(histName)){
+          conflicts.push({county:name,matchedAs:histName,dates});
+        }
+      }
+    });
+    
+    if(conflicts.length>0){
+      hasError=true;
+      inputEl.classList.add('has-error');
+      let errHtml='⚠️ <strong>Check your requested counties/cities.</strong> Already targeted:<br>';
+      const seen=new Set();
+      conflicts.forEach(c=>{
+        const k=c.county+'|'+c.dates.join(',');
+        if(seen.has(k))return;seen.add(k);
+        const latestDate=c.dates[c.dates.length-1];
+        errHtml+=`• <strong>${c.county}</strong> was already targeted on <strong>${latestDate}</strong><br>`;
+      });
+      errEl.innerHTML=errHtml;
+      errEl.classList.add('show');
+    }else{
+      inputEl.classList.remove('has-error');
+      errEl.classList.remove('show');
+      errEl.innerHTML='';
+    }
+  }
+  return!hasError;
+}
+
 function handleModalSave(){
-  saveToFirestore();
+  // Get current modal pid
+  const titleEl=document.querySelector('.modal-subtitle');
+  if(!titleEl)return;
+  const pidMatch=titleEl.textContent.match(/L\s*-\s*\d+/);
+  if(!pidMatch)return;
+  const pid=pidMatch[0];
+  
+  // Validate counties for Realtor campaigns
+  const valid=validateCounties(pid);
   const msg=document.getElementById('modal-save-msg');
+  if(!valid){
+    msg.textContent='⚠ Fix county conflicts before saving';
+    msg.style.color='#DC2626';
+    msg.style.opacity='1';
+    setTimeout(()=>{msg.style.opacity='0';msg.style.color='#059669';},3000);
+    return;
+  }
   msg.textContent='✓ Saved successfully';
+  msg.style.color='#059669';
   msg.style.opacity='1';
   setTimeout(()=>{msg.style.opacity='0';},2000);
 }
+
+// MASTER CAMPAIGN REPORT
+let mcrRange='thisweek';
+
+function getDateRange(range){
+  const now=new Date(TODAY);
+  const y=now.getFullYear(),m=now.getMonth(),d=now.getDate();
+  const dow=now.getDay();// 0=Sun
+  let start,end;
+  if(range==='yesterday'){
+    const yd=new Date(y,m,d-1);
+    start=end=yd;
+  }else if(range==='thisweek'){
+    // Monday to today
+    const diff=dow===0?6:dow-1;
+    start=new Date(y,m,d-diff);
+    end=now;
+  }else if(range==='lastweek'){
+    const diff=dow===0?6:dow-1;
+    const thisMonday=new Date(y,m,d-diff);
+    start=new Date(thisMonday);start.setDate(start.getDate()-7);
+    end=new Date(thisMonday);end.setDate(end.getDate()-1);
+  }else if(range==='thismonth'){
+    start=new Date(y,m,1);
+    end=now;
+  }else if(range==='lastmonth'){
+    start=new Date(y,m-1,1);
+    end=new Date(y,m,0);// last day of prev month
+  }
+  return{
+    start:dateStr(start),
+    end:dateStr(end)
+  };
+}
+
+function parseCampaignDate(rd){
+  if(!rd)return null;
+  const p=rd.split('/');
+  if(p.length<3)return null;
+  const dt=new Date(parseInt(p[2]),parseInt(p[0])-1,parseInt(p[1]));
+  return dateStr(dt);
+}
+
+function buildMCRData(range){
+  const{start,end}=getDateRange(range);
+  const propData={};// pid -> {realtor,buyer,neighbor,investor,pricedrop,total,counties}
+  
+  PROPS.forEach(prop=>{
+    if(!prop.history)return;
+    let realtor=0,buyer=0,neighbor=0,investor=0,pricedrop=0;
+    const counties=[];
+    
+    prop.history.forEach(h=>{
+      const ds=parseCampaignDate(h.runDate);
+      if(!ds||ds<start||ds>end)return;
+      
+      if(h.objective==='Realtors Reach Out'){
+        realtor++;
+        if(h.counties){
+          counties.push({date:h.runDate,text:h.counties});
+        }
+      }
+      else if(h.objective==='Buyer Base Reach Out')buyer++;
+      else if(h.objective==='Neighbor Reach Out')neighbor++;
+      else if(h.objective==='InvestorBase Reach Out')investor++;
+      else if(h.objective==='Price Reduction')pricedrop++;
+    });
+    
+    const total=realtor+buyer+neighbor+investor+pricedrop;
+    if(total>0){
+      propData[prop.id]={realtor,buyer,neighbor,investor,pricedrop,total,counties,prop};
+    }
+  });
+  
+  return propData;
+}
+
+function renderMCR(){
+  const data=buildMCRData(mcrRange);
+  const body=document.getElementById('mcr-body');
+  const summary=document.getElementById('mcr-summary');
+  const entries=Object.values(data).sort((a,b)=>b.total-a.total);
+  
+  if(entries.length===0){
+    body.innerHTML='<div class="mcr-empty">No completed campaigns found for this period.</div>';
+    summary.innerHTML='';
+    return;
+  }
+  
+  let html='<table class="mcr-table"><thead><tr>';
+  html+='<th>Property</th><th style="text-align:center">Realtor</th><th style="text-align:center">Buyer Base</th><th style="text-align:center">Neighbor</th><th style="text-align:center">Investor</th><th style="text-align:center">Price Drop</th><th style="text-align:center">Total</th><th>Realtor Counties/Cities Targeted</th><th style="text-align:center">Expiration</th>';
+  html+='</tr></thead><tbody>';
+  
+  let grandTotal=0,grandRealtor=0,grandBuyer=0,grandNeighbor=0,grandInvestor=0,grandPricedrop=0;
+  
+  entries.forEach(e=>{
+    const p=e.prop;
+    const addr=shortAddr(p.address);
+    grandTotal+=e.total;grandRealtor+=e.realtor;grandBuyer+=e.buyer;grandNeighbor+=e.neighbor;grandInvestor+=e.investor;grandPricedrop+=e.pricedrop;
+    
+    // Format counties
+    let countiesHtml='—';
+    if(e.counties.length>0){
+      countiesHtml=e.counties.map(c=>{
+        const names=extractCountyNames(c.text);
+        if(names.length===0)return'';
+        return'<div style="margin-bottom:3px"><span style="font-size:8px;color:var(--text3)">('+c.date+')</span> '+names.map(n=>'<span class="mcr-county-tag">'+n+'</span>').join(' ')+'</div>';
+      }).filter(x=>x).join('');
+      if(!countiesHtml)countiesHtml='—';
+    }
+    
+    // Expiration
+    let expHtml='',expClass='ok';
+    if(p.expDays===0){expHtml='TAH Owned';expClass='owned';}
+    else if(p.expDays<0){expHtml='Expired';expClass='expired';}
+    else if(p.expDays<=15){expHtml=p.expDays+'d';expClass='urgent';}
+    else{expHtml=p.expDays+'d';expClass='ok';}
+    
+    const cc=(n)=>n>0?'has':'zero';
+    
+    html+=`<tr>
+      <td><div class="mcr-prop-addr">${addr}</div><div class="mcr-prop-sub">${p.id} · ${p.state} · ${p.pod}</div></td>
+      <td class="mcr-count ${cc(e.realtor)}">${e.realtor}</td>
+      <td class="mcr-count ${cc(e.buyer)}">${e.buyer}</td>
+      <td class="mcr-count ${cc(e.neighbor)}">${e.neighbor}</td>
+      <td class="mcr-count ${cc(e.investor)}">${e.investor}</td>
+      <td class="mcr-count ${cc(e.pricedrop)}">${e.pricedrop}</td>
+      <td class="mcr-total">${e.total}</td>
+      <td class="mcr-counties">${countiesHtml}</td>
+      <td class="mcr-exp ${expClass}">${expHtml}</td>
+    </tr>`;
+  });
+  
+  html+='</tbody></table>';
+  body.innerHTML=html;
+  
+  summary.innerHTML=`
+    <span>Properties: <strong>${entries.length}</strong></span>
+    <span>Total Campaigns: <strong>${grandTotal}</strong></span>
+    <span>Realtor: <strong>${grandRealtor}</strong></span>
+    <span>Buyer Base: <strong>${grandBuyer}</strong></span>
+    <span>Neighbor: <strong>${grandNeighbor}</strong></span>
+    <span>Investor: <strong>${grandInvestor}</strong></span>
+    <span>Price Drop: <strong>${grandPricedrop}</strong></span>
+  `;
+}
+
+function openMCR(){
+  document.getElementById('mcr-overlay').classList.add('show');
+  renderMCR();
+}
+
+function setMCRFilter(range){
+  mcrRange=range;
+  document.querySelectorAll('.mcr-filter').forEach(b=>b.classList.toggle('active',b.dataset.range===range));
+  renderMCR();
+}
+
+document.getElementById('mcr-overlay').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('show');});
 
 // POD FILTER
 function togglePodFilter(pod){
@@ -862,7 +1355,7 @@ function togglePodFilter(pod){
   document.querySelectorAll('.pod-filter').forEach(el=>{
     el.classList.toggle('active',el.dataset.pod===state.podFilter);
   });
-  ['all','profit','dom','lastcamp','owned','ai','new'].forEach(t=>renderSB(t));
+  renderSidebar();
 }
 
 function getFilteredProps(){
@@ -875,26 +1368,15 @@ function initApp(){
     if(!state.schedule[ds])state.schedule[ds]=items.map(i=>({...i}));
   }
   state.currentMonth=new Date(TODAY.getFullYear(),TODAY.getMonth(),1);
-  ['all','profit','dom','lastcamp','owned','ai','new'].forEach(t=>renderSB(t));
-  renderResched();renderCal();updateStats();
-  document.querySelectorAll('.sidebar-tab').forEach(t=>{t.onclick=()=>{
-    state.activeTab=t.dataset.tab;
-    document.querySelectorAll('.sidebar-tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===t.dataset.tab));
-    document.querySelectorAll('.sidebar-content').forEach(x=>x.classList.add('hidden'));
-    document.getElementById('sb-'+t.dataset.tab).classList.remove('hidden');
-  }});
+  renderSidebar();renderResched();renderCal();updateStats();
   document.getElementById('prev-month').onclick=()=>{state.currentMonth.setMonth(state.currentMonth.getMonth()-1);renderCal()};
   document.getElementById('next-month').onclick=()=>{state.currentMonth.setMonth(state.currentMonth.getMonth()+1);renderCal()};
   document.getElementById('modal').onclick=e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('show')};
 }
 async function boot(){
   const hasData=await loadFromFirestore();
-  if(hasData){
-    initApp();
-  }else{
-    // No Firestore data - use embedded data
-    initApp();
-  }
+  if(hasData){initApp();}
+  else{initApp();}
 }
 document.addEventListener('DOMContentLoaded',boot);
 </script>
